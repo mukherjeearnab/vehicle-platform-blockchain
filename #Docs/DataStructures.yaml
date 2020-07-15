@@ -8,6 +8,13 @@ Vehicle:
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
 
+Owner:
+    UID: UID of Owner.
+    DOB: Date of Birth.
+    Address: Address of Owner.
+    Phone: Phone of Owner.
+    Vehicles: Array of Vehicle RegNo(s) of Vehicles oned by the Owner.
+
 Driver:
     LicenceNumber: Driving Licence ID of Driver.
     DOB: Date Of Birth.
