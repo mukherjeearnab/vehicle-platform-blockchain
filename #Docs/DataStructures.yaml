@@ -1,0 +1,64 @@
+Vehicle:
+    RegNo: Registration Number of Vehicle.
+    Make: Manufacturer of Vehicle e.g. "Mazda".
+    Model: Model of Vehicle e.g. "MX5 Miata".
+    ModelVariant: Model Variant of Vehicle e.g. "Roadster GT 2.0 auto".
+    ModelYear: Model Year of Vehicle e.g. "2019".
+    EngineNo: Engine Number of Vehicle.
+    ChassisNo: Chassis Number of Vehicle.
+    Owner: UID of Owner.
+
+Driver:
+    LicenceNumber: Driving Licence ID of Driver.
+    DOB: Date Of Birth.
+    Address: Address of Driver.
+    Phone: Phone of Driver.
+    UID: UID of Driver.
+
+RTO:
+    Type: "RTO"
+    RtoID: ID of RTO.
+    RtoName: Name of RTO Office.
+    RtoAddress: Address of RTO.
+
+RtoEmployee:
+    Type: "RTO_E"
+    EmployeeID: Employee ID.
+    UID: UID of Employee.
+    RtoID: RTO ID where he/she is posted.
+
+InsuranceCompany:
+    Type: "INSRNS"
+    CompanyID: ID of the Company.
+    CompanyName: Name of the Company.
+    CompanyAddress: Address of Company.
+
+InsuranceEmployee:
+    Type: "INSRNS_E"
+    EmployeeID: Employee ID.
+    UID: UID of Employee.
+    CompanyID: Company ID where employed.
+
+PollutionCompany:
+    Type: "POLUTN"
+    CompanyID: ID of the Company.
+    CompanyName: Name of the Company.
+    CompanyAddress: Address of Company.
+
+PollutionEmployee:
+    Type: "POLUTN_E"
+    EmployeeID: Employee ID.
+    UID: UID of Employee.
+    CompanyID: Company ID where employed.
+
+PoliceStation:
+    Type: "PLCE"
+    StationID: ID of the Company.
+    StationName: Name of the Company.
+    StationAddress: Address of Company.
+
+PoliceOfficer:
+    Type: "PLCE_E"
+    OfficerID: Officer ID.
+    UID: UID of Officer.
+    StationID: Company ID where employed.
