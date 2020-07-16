@@ -72,7 +72,7 @@ PollutionEmployee:
     UID: UID of Employee.
     CompanyID: Company ID where employed.
 
-PoliceStation:
+'PoliceStation:
     Type: "PLCE"
     StationID: ID of the Company.
     StationName: Name of the Company.
@@ -82,7 +82,7 @@ PoliceOfficer:
     Type: "PLCE_E"
     OfficerID: Officer ID.
     UID: UID of Officer.
-    StationID: Company ID where employed.
+    StationID: Company ID where employed.'
 
 VehicleRegApplication:
     Type: "VEHCL_RA"

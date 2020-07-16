@@ -1,0 +1,29 @@
+Registration:
+    RegisterCitizen: Register a new Citizen
+    RegisterRto: Register new RTO.
+    RegisterRtoEmployee: Register new RTO employee.
+    RegisterInsuranceCompany: Register a new Insurance Company.
+    RegisterInsuranceEmployee: Register a new Insurance Employee.
+    RegisterPollutionCompany: Register a new Pollution Company.
+    RegisterPollutionEmployee: Register a new Pollution Employee.
+    GetProfile: Returns Profile Details of users.
+
+RTOservices:
+    NewDrivingLicenceApplication: Create new Driving Licence Application.
+    NewVehicleRegistrationApplication: Create new Vehicle Registration Application.
+    GetDrivingLicenceApplication: Get details of Driving Licence Application.
+    GetVehicleRegistrationApplication: Get details of Vehicle Registration Application.
+    UpdateDrivingLicenceApplication: Update Driving Licence Application
+    UpdateVehicleRegistrationApplication: Update Vehicle Registration Application
+    CreateDrivingLicence: Set Driving Licence Number & Create New Licence
+    GetDrivingLicence: Get Driving Licence Details
+    CreateVehicleProfile: Set Vehicle Registration Number & Create New Vehicle Profile
+    GetVehicleProfile: Get Registration Details of Vehicles
+
+Pollution:
+    CreateNewPollutionCertificate: Create New Pollution Certificate
+
+Insurance:
+    PurchaseInsurancePolicy: Purchase Insurance Policy
+    ClaimInsurancePolicy: Claim on a Insurance Policy
+    ApproveInsuranceClaim: Approve Insurance Claim

@@ -22,5 +22,6 @@ Insurance
     Approve Insurance Claims.
 
 Police
+    Get Citizen Details
     Get Vehicle Details
     Get Licence Details
