@@ -1,4 +1,5 @@
 Vehicle:
+    Type: "VEHCL"
     RegNo: Registration Number of Vehicle.
     Make: Manufacturer of Vehicle e.g. "Mazda".
     Model: Model of Vehicle e.g. "MX5 Miata".
@@ -8,19 +9,22 @@ Vehicle:
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
 
-Owner:
-    UID: UID of Owner.
-    DOB: Date of Birth.
-    Address: Address of Owner.
-    Phone: Phone of Owner.
-    Vehicles: Array of Vehicle RegNo(s) of Vehicles oned by the Owner.
+DrivingLicence:
+    Type: "DRVLCN"
+    LicenceNumber: Licience Number.
+    UID: UID of Licence Holder.
+    VehicleType: Vehicle Type for which Licience issued e.g. "LMV", "GEARED TWO WHEELER", "GEARLESS TWO WHEELER".
+    ExpiryDate: Date When Licence Expires.
 
-Driver:
-    LicenceNumber: Driving Licence ID of Driver.
-    DOB: Date Of Birth.
-    Address: Address of Driver.
-    Phone: Phone of Driver.
-    UID: UID of Driver.
+Citizen:
+    Type: "CTZN"
+    UID: UID of Citizen.
+    Name: Name of Citizen.
+    DOB: Date of Birth.
+    Address: Address of Citizen.
+    Phone: Phone of Citizen.
+    LicenceNumbers: Array of Driving Licence IDs of Citizen, if N/A -> len() = 0.
+    Vehicles: Array of Vehicle RegNo(s) of Vehicles owned by the Citizen, if N/A -> len() = 0.
 
 RTO:
     Type: "RTO"
@@ -69,3 +73,38 @@ PoliceOfficer:
     OfficerID: Officer ID.
     UID: UID of Officer.
     StationID: Company ID where employed.
+
+VehicleRegApplication:
+    Type: "VEHCL_RA"
+    ApplicationID: Application ID.
+    DateTime: Application Date and Time.
+    Make: Manufacturer of Vehicle e.g. "Mazda".
+    Model: Model of Vehicle e.g. "MX5 Miata".
+    ModelVariant: Model Variant of Vehicle e.g. "Roadster GT 2.0 auto".
+    ModelYear: Model Year of Vehicle e.g. "2019".
+    EngineNo: Engine Number of Vehicle.
+    ChassisNo: Chassis Number of Vehicle.
+    Owner: UID of Owner.
+    Status: # Any changes that happens to the application progress noted here.
+        - _index:
+              Date: Date of progress change.
+              Content: Content to describe the current status.
+              Employee: Employee ID of the one who changes the status.
+    Registration: # Registration details of vehicle, when application complete!
+        RegNo: Registration Number of the Vehicle.
+        Employee: Employee ID of the one sets the RegNo.
+
+DrivingLicenceApplication:
+    Type: "DRVLCN_RA"
+    ApplicationID: Application ID.
+    DateTime: Application Date and Time.
+    UID: UID of Applicant.
+    RtoID: ID of RTO.
+    Status: # Any changes that happens to the application progress noted here.
+        - _index:
+              Date: Date of progress change.
+              Content: Content to describe the current status.
+              Employee: Employee ID of the one who changes the status.
+    Licience: # Registration details of vehicle, when application complete!
+        LicenceNumber: Licence Number if Issued.
+        Employee: Employee ID of the one sets the Licence Number.
