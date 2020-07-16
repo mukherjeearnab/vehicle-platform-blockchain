@@ -1,0 +1,26 @@
+Citizen
+    Create New Driving Licience Application
+    Create New Vehicle Registration Application
+    Buy Insurance Policy
+    Claim Insurance Policy
+    Get Profile (self) [Vehicles, Licences]
+    Get Registration Details of Vehicles
+    Get Pollution Certificate
+
+RTO
+    Get Driving Applications
+    Get Vehicle Registration Application
+    Update Driving Application
+    Update Vehicle Registration Application
+    Set Driving Licence Number & Create New Licence
+    Set Vehicle Registration Number & Create New Vehicle Profile
+
+Pollution
+    Issue New Pollution Certificate
+
+Insurance
+    Approve Insurance Claims.
+
+Police
+    Get Vehicle Details
+    Get Licence Details

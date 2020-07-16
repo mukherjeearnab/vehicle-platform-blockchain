@@ -8,6 +8,7 @@ Vehicle:
     EngineNo: Engine Number of Vehicle.
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
+    Insurance: Array of Insurance IDs purchased for Vehicle.
 
 DrivingLicence:
     Type: "DRVLCN"
@@ -15,6 +16,15 @@ DrivingLicence:
     UID: UID of Licence Holder.
     VehicleType: Vehicle Type for which Licience issued e.g. "LMV", "GEARED TWO WHEELER", "GEARLESS TWO WHEELER".
     ExpiryDate: Date When Licence Expires.
+
+InsurancePolicy:
+    Type: "INSRNS_PLCY"
+    InsuranceID: ID of Insurance Policy.
+    VehicleRegNo: Registration Number of Vehicle.
+    UID: UID of Citizen who purchased the policy.
+    Date: Policy Purchase Date.
+    Duration: Duration of Insurance.
+    Content: Content of the Policy.
 
 Citizen:
     Type: "CTZN"
@@ -108,3 +118,22 @@ DrivingLicenceApplication:
     Licience: # Registration details of vehicle, when application complete!
         LicenceNumber: Licence Number if Issued.
         Employee: Employee ID of the one sets the Licence Number.
+
+PollutionCertificate:
+    Type: "POLUTN_CERT"
+    CertID: Certificate ID.
+    DateTime: Date & Time of Certificate Issue.
+    VehicleRegNo: Registration Number of Vehicle.
+    Employee: Employee ID of the one who issued the Certificate.
+    Content: Certificate Content.
+
+InsuranceClaim:
+    Type: "INSRNS_CLM"
+    ClaimID: ID of the Insurance Claim.
+    InsurancePolicyID: Policy ID on which claimed.
+    DateTime: DateTime of Claiming.
+    Status: # Any changes that happens to the application progress noted here.
+        - _index:
+              Date: Date of progress change.
+              Content: Content to describe the current status.
+              Employee: Employee ID of the one who changes the status.
