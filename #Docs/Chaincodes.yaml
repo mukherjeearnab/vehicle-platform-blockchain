@@ -1,4 +1,4 @@
-Registration:
+Registration: # Create Profiles
     RegisterCitizen: Register a new Citizen
     RegisterRto: Register new RTO.
     RegisterRtoEmployee: Register new RTO employee.
@@ -23,6 +23,7 @@ Vehicle:
     GetVehicleProfile: Get Registration Details of Vehicles
     AddPollutionCertificate: Add new Pollution Certificate
     AddInsurancePolicy: Add new Insurance Policy
+    TransferOwnership: Transfer ownership from current owner to new owner
 
 Pollution:
     CreateNewPollutionCertificate: Create New Pollution Certificate

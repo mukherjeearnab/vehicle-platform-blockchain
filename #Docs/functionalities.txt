@@ -14,6 +14,7 @@ RTO
     Update Vehicle Registration Application
     Set Driving Licence Number & Create New Licence
     Set Vehicle Registration Number & Create New Vehicle Profile
+    Transfer Ownership of vehicle
 
 Pollution
     Issue New Pollution Certificate

@@ -5,11 +5,18 @@ Vehicle:
     Model: Model of Vehicle e.g. "MX5 Miata".
     ModelVariant: Model Variant of Vehicle e.g. "Roadster GT 2.0 auto".
     ModelYear: Model Year of Vehicle e.g. "2019".
+    Color: Color of the Vehicle.
     EngineNo: Engine Number of Vehicle.
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
     Insurance: Array of Insurance IDs purchased for Vehicle.
     PollutionCert: Array of Pollution Certificates.
+    OwnershipHistory: # Any ownership changes are noted here.
+        - _index: 
+            Prev: Previous Owner.
+            Curr: Current Owner.
+            Employee: RTO employee ID who handled the ownership.
+            Date: Date of transfer initiation.
 
 DrivingLicence:
     Type: "DRVLCN"
