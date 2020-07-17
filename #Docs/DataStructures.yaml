@@ -9,6 +9,7 @@ Vehicle:
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
     Insurance: Array of Insurance IDs purchased for Vehicle.
+    PollutionCert: Array of Pollution Certificates.
 
 DrivingLicence:
     Type: "DRVLCN"

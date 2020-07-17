@@ -19,7 +19,9 @@ Pollution
     Issue New Pollution Certificate
 
 Insurance
-    Approve Insurance Claims.
+    Get Vehicle Details
+    Get Insurance Claims
+    Approve Insurance Claims
 
 Police
     Get Citizen Details

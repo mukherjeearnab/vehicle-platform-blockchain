@@ -17,8 +17,12 @@ RTOservices:
     UpdateVehicleRegistrationApplication: Update Vehicle Registration Application
     CreateDrivingLicence: Set Driving Licence Number & Create New Licence
     GetDrivingLicence: Get Driving Licence Details
+
+Vehicle:
     CreateVehicleProfile: Set Vehicle Registration Number & Create New Vehicle Profile
     GetVehicleProfile: Get Registration Details of Vehicles
+    AddPollutionCertificate: Add new Pollution Certificate
+    AddInsurancePolicy: Add new Insurance Policy
 
 Pollution:
     CreateNewPollutionCertificate: Create New Pollution Certificate
