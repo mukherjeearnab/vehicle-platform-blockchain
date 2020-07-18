@@ -33,3 +33,7 @@ Insurance:
     PurchaseInsurancePolicy: Purchase Insurance Policy
     ClaimInsurancePolicy: Claim on a Insurance Policy
     ApproveInsuranceClaim: Approve Insurance Claim
+
+TrafficViolation:
+    FileTrafficViolation: File a new Traffic Violation
+    GetTrafficViolation: Get details of a Traffic Violation

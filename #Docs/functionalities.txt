@@ -4,7 +4,12 @@ Citizen
     Claim Insurance Policy
     Get Profile (self) [Vehicles, Licences]
     Get Registration Details of Vehicles
+    Get Insurance Claim Status
+    Get Licence Details
+    Get Insurance Details
+    Get Insurance Claim Details
     Get Pollution Certificate
+    Get Traffic Violations
 
 RTO
     Get Driving Applications

@@ -33,6 +33,7 @@ InsurancePolicy:
     Date: Policy Purchase Date.
     Duration: Duration of Insurance.
     Content: Content of the Policy.
+    Claims: Array containing CLaimID's of Insurance Claims.
 
 Citizen:
     Type: "CTZN"
@@ -149,8 +150,10 @@ InsuranceClaim:
 
 TrafficViolation:
     Type: "TRFC_VIO"
-    Date:
-    OfficerID:
-    LicenseNumber:
-    RegNo:
-    Content:
+    DateIncident: Date of the Incident.
+    DateFiling: Date of Filing the Violation.
+    OfficerID: Officer ID of the Officer who filed the violation.
+    LicenseNumber: License Number of the Driver Involved.
+    RegNo: Registration Number of the Vehicle Involved.
+    Content: Content of the Violation.
+    Evidence: IPFS hash of any Evidence Procured from the Scene of Incident.
