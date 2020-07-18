@@ -1,4 +1,4 @@
-Registration: # Create Profiles
+Profile Manager: # Create Profiles
     RegisterCitizen: Register a new Citizen
     RegisterRto: Register new RTO.
     RegisterRtoEmployee: Register new RTO employee.
@@ -27,6 +27,7 @@ Vehicle:
 
 Pollution:
     CreateNewPollutionCertificate: Create New Pollution Certificate
+    GetPollutionCertificate: Get Details of Pollution Certificate
 
 Insurance:
     PurchaseInsurancePolicy: Purchase Insurance Policy

@@ -1,7 +1,6 @@
 Citizen
     Create New Driving Licience Application
     Create New Vehicle Registration Application
-    Buy Insurance Policy
     Claim Insurance Policy
     Get Profile (self) [Vehicles, Licences]
     Get Registration Details of Vehicles
@@ -21,6 +20,7 @@ Pollution
 
 Insurance
     Get Vehicle Details
+    Add Insurance Policy To Vehicle
     Get Insurance Claims
     Approve Insurance Claims
 
@@ -28,3 +28,14 @@ Police
     Get Citizen Details
     Get Vehicle Details
     Get Licence Details
+    File Traffic Violation
+
+Network Manager
+    Register a new Citizen
+    Register new RTO.
+    Register new RTO employee.
+    Register a new Insurance Company.
+    Register a new Insurance Employee.
+    Register a new Pollution Company.
+    Register a new Pollution Employee.
+    Get Profile Details of users.

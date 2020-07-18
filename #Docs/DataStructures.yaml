@@ -12,11 +12,11 @@ Vehicle:
     Insurance: Array of Insurance IDs purchased for Vehicle.
     PollutionCert: Array of Pollution Certificates.
     OwnershipHistory: # Any ownership changes are noted here.
-        - _index: 
-            Prev: Previous Owner.
-            Curr: Current Owner.
-            Employee: RTO employee ID who handled the ownership.
-            Date: Date of transfer initiation.
+        - _index:
+              Prev: Previous Owner.
+              Curr: Current Owner.
+              Employee: RTO employee ID who handled the ownership.
+              Date: Date of transfer initiation.
 
 DrivingLicence:
     Type: "DRVLCN"
@@ -80,7 +80,7 @@ PollutionEmployee:
     UID: UID of Employee.
     CompanyID: Company ID where employed.
 
-'PoliceStation:
+PoliceStation:
     Type: "PLCE"
     StationID: ID of the Company.
     StationName: Name of the Company.
@@ -90,7 +90,7 @@ PoliceOfficer:
     Type: "PLCE_E"
     OfficerID: Officer ID.
     UID: UID of Officer.
-    StationID: Company ID where employed.'
+    StationID: Company ID where employed.
 
 VehicleRegApplication:
     Type: "VEHCL_RA"
@@ -140,8 +140,17 @@ InsuranceClaim:
     ClaimID: ID of the Insurance Claim.
     InsurancePolicyID: Policy ID on which claimed.
     DateTime: DateTime of Claiming.
+    Content: Content of the claim.
     Status: # Any changes that happens to the application progress noted here.
         - _index:
               Date: Date of progress change.
               Content: Content to describe the current status.
               Employee: Employee ID of the one who changes the status.
+
+TrafficViolation:
+    Type: "TRFC_VIO"
+    Date:
+    OfficerID:
+    LicenseNumber:
+    RegNo:
+    Content:
