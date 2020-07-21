@@ -14,32 +14,32 @@ PeerOrgs:
       Users:
           Count: 1
 
+    - Name: RTO
+      Domain: rto.vehicle.com
+      EnableNodeOUs: true
+      Template:
+          Count: 1
+      Users:
+          Count: 1
+
+    - Name: Pollution
+      Domain: pollution.vehicle.com
+      EnableNodeOUs: true
+      Template:
+          Count: 1
+      Users:
+          Count: 1
+
+    - Name: Insurance
+      Domain: insurance.vehicle.com
+      EnableNodeOUs: true
+      Template:
+          Count: 1
+      Users:
+          Count: 1
+
     - Name: Police
       Domain: police.vehicle.com
-      EnableNodeOUs: true
-      Template:
-          Count: 1
-      Users:
-          Count: 1
-
-    - Name: Forensics
-      Domain: forensics.vehicle.com
-      EnableNodeOUs: true
-      Template:
-          Count: 1
-      Users:
-          Count: 1
-
-    - Name: Court
-      Domain: court.vehicle.com
-      EnableNodeOUs: true
-      Template:
-          Count: 1
-      Users:
-          Count: 1
-
-    - Name: IdentityProvider
-      Domain: identityprovider.vehicle.com
       EnableNodeOUs: true
       Template:
           Count: 1

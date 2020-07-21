@@ -30,6 +30,51 @@ Organizations:
               Type: Signature
               Rule: "OR('CitizenMSP.admin')"
 
+    - &RTO
+      Name: RTOMSP
+      ID: RTOMSP
+      MSPDir: crypto-config/peerOrganizations/rto.vehicle.com/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('RTOMSP.admin', 'RTOMSP.peer', 'RTOMSP.client')"
+          Writers:
+              Type: Signature
+              Rule: "OR('RTOMSP.admin', 'RTOMSP.client')"
+          Admins:
+              Type: Signature
+              Rule: "OR('RTOMSP.admin')"
+
+    - &Pollution
+      Name: PollutionMSP
+      ID: PollutionMSP
+      MSPDir: crypto-config/peerOrganizations/pollution.vehicle.com/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('PollutionMSP.admin', 'PollutionMSP.peer', 'PollutionMSP.client')"
+          Writers:
+              Type: Signature
+              Rule: "OR('PollutionMSP.admin', 'PollutionMSP.client')"
+          Admins:
+              Type: Signature
+              Rule: "OR('PollutionMSP.admin')"
+
+    - &Insurance
+      Name: InsuranceMSP
+      ID: InsuranceMSP
+      MSPDir: crypto-config/peerOrganizations/insurance.vehicle.com/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('InsuranceMSP.admin', 'InsuranceMSP.peer', 'InsuranceMSP.client')"
+          Writers:
+              Type: Signature
+              Rule: "OR('InsuranceMSP.admin', 'InsuranceMSP.client')"
+          Admins:
+              Type: Signature
+              Rule: "OR('InsuranceMSP.admin')"
+
     - &Police
       Name: PoliceMSP
       ID: PoliceMSP
@@ -44,51 +89,6 @@ Organizations:
           Admins:
               Type: Signature
               Rule: "OR('PoliceMSP.admin')"
-
-    - &Forensics
-      Name: ForensicsMSP
-      ID: ForensicsMSP
-      MSPDir: crypto-config/peerOrganizations/forensics.vehicle.com/msp
-      Policies:
-          Readers:
-              Type: Signature
-              Rule: "OR('ForensicsMSP.admin', 'ForensicsMSP.peer', 'ForensicsMSP.client')"
-          Writers:
-              Type: Signature
-              Rule: "OR('ForensicsMSP.admin', 'ForensicsMSP.client')"
-          Admins:
-              Type: Signature
-              Rule: "OR('ForensicsMSP.admin')"
-
-    - &Court
-      Name: CourtMSP
-      ID: CourtMSP
-      MSPDir: crypto-config/peerOrganizations/court.vehicle.com/msp
-      Policies:
-          Readers:
-              Type: Signature
-              Rule: "OR('CourtMSP.admin', 'CourtMSP.peer', 'CourtMSP.client')"
-          Writers:
-              Type: Signature
-              Rule: "OR('CourtMSP.admin', 'CourtMSP.client')"
-          Admins:
-              Type: Signature
-              Rule: "OR('CourtMSP.admin')"
-
-    - &IdentityProvider
-      Name: IdentityProviderMSP
-      ID: IdentityProviderMSP
-      MSPDir: crypto-config/peerOrganizations/identityprovider.vehicle.com/msp
-      Policies:
-          Readers:
-              Type: Signature
-              Rule: "OR('IdentityProviderMSP.admin', 'IdentityProviderMSP.peer', 'IdentityProviderMSP.client')"
-          Writers:
-              Type: Signature
-              Rule: "OR('IdentityProviderMSP.admin', 'IdentityProviderMSP.client')"
-          Admins:
-              Type: Signature
-              Rule: "OR('IdentityProviderMSP.admin')"
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -177,10 +177,10 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *Citizen
+                    - *RTO
+                    - *Pollution
+                    - *Insurance
                     - *Police
-                    - *Forensics
-                    - *Court
-                    - *IdentityProvider
     LawNetChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
@@ -188,9 +188,9 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *Citizen
+                - *RTO
+                - *Pollution
+                - *Insurance
                 - *Police
-                - *Forensics
-                - *Court
-                - *IdentityProvider
             Capabilities:
                 <<: *ApplicationCapabilities
