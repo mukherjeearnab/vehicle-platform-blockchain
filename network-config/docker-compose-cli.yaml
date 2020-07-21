@@ -3,15 +3,15 @@ version: "2"
 volumes:
     orderer.vehicle.com:
     peer0.citizen.vehicle.com:
+    peer0.rto.vehicle.com:
+    peer0.pollution.vehicle.com:
+    peer0.insurance.vehicle.com:
     peer0.police.vehicle.com:
-    peer0.forensics.vehicle.com:
-    peer0.court.vehicle.com:
-    peer0.identityprovider.vehicle.com:
     caCitizen:
+    caRTO:
+    caPollution:
+    caInsurance:
     caPolice:
-    caForensics:
-    caCourt:
-    caIdentityProvider:
 
 networks:
     testnet:
@@ -35,6 +35,36 @@ services:
         depends_on:
             - couchdb.peer0.citizen.vehicle.com
 
+    peer0.rto.vehicle.com:
+        container_name: peer0.rto.vehicle.com
+        extends:
+            file: base/docker-compose-base.yaml
+            service: peer0.rto.vehicle.com
+        networks:
+            - testnet
+        depends_on:
+            - couchdb.peer0.rto.vehicle.com
+
+    peer0.pollution.vehicle.com:
+        container_name: peer0.pollution.vehicle.com
+        extends:
+            file: base/docker-compose-base.yaml
+            service: peer0.pollution.vehicle.com
+        networks:
+            - testnet
+        depends_on:
+            - couchdb.peer0.pollution.vehicle.com
+
+    peer0.insurance.vehicle.com:
+        container_name: peer0.insurance.vehicle.com
+        extends:
+            file: base/docker-compose-base.yaml
+            service: peer0.insurance.vehicle.com
+        networks:
+            - testnet
+        depends_on:
+            - couchdb.peer0.insurance.vehicle.com
+
     peer0.police.vehicle.com:
         container_name: peer0.police.vehicle.com
         extends:
@@ -45,36 +75,6 @@ services:
         depends_on:
             - couchdb.peer0.police.vehicle.com
 
-    peer0.forensics.vehicle.com:
-        container_name: peer0.forensics.vehicle.com
-        extends:
-            file: base/docker-compose-base.yaml
-            service: peer0.forensics.vehicle.com
-        networks:
-            - testnet
-        depends_on:
-            - couchdb.peer0.forensics.vehicle.com
-
-    peer0.court.vehicle.com:
-        container_name: peer0.court.vehicle.com
-        extends:
-            file: base/docker-compose-base.yaml
-            service: peer0.court.vehicle.com
-        networks:
-            - testnet
-        depends_on:
-            - couchdb.peer0.court.vehicle.com
-
-    peer0.identityprovider.vehicle.com:
-        container_name: peer0.identityprovider.vehicle.com
-        extends:
-            file: base/docker-compose-base.yaml
-            service: peer0.identityprovider.vehicle.com
-        networks:
-            - testnet
-        depends_on:
-            - couchdb.peer0.identityprovider.vehicle.com
-
     caCitizen:
         container_name: caCitizen
         extends:
@@ -83,35 +83,35 @@ services:
         networks:
             - testnet
 
+    caRTO:
+        container_name: caRTO
+        extends:
+            file: base/docker-compose-base.yaml
+            service: caRTO
+        networks:
+            - testnet
+
+    caPollution:
+        container_name: caPollution
+        extends:
+            file: base/docker-compose-base.yaml
+            service: caPollution
+        networks:
+            - testnet
+
+    caInsurance:
+        container_name: caInsurance
+        extends:
+            file: base/docker-compose-base.yaml
+            service: caInsurance
+        networks:
+            - testnet
+
     caPolice:
         container_name: caPolice
         extends:
             file: base/docker-compose-base.yaml
             service: caPolice
-        networks:
-            - testnet
-
-    caForensics:
-        container_name: caForensics
-        extends:
-            file: base/docker-compose-base.yaml
-            service: caForensics
-        networks:
-            - testnet
-
-    caCourt:
-        container_name: caCourt
-        extends:
-            file: base/docker-compose-base.yaml
-            service: caCourt
-        networks:
-            - testnet
-
-    caIdentityProvider:
-        container_name: caIdentityProvider
-        extends:
-            file: base/docker-compose-base.yaml
-            service: caIdentityProvider
         networks:
             - testnet
 
@@ -126,8 +126,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.police.vehicle.com:
-        container_name: couchdb.peer0.police.vehicle.com
+    couchdb.peer0.rto.vehicle.com:
+        container_name: couchdb.peer0.rto.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -137,8 +137,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.forensics.vehicle.com:
-        container_name: couchdb.peer0.forensics.vehicle.com
+    couchdb.peer0.pollution.vehicle.com:
+        container_name: couchdb.peer0.pollution.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -148,8 +148,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.court.vehicle.com:
-        container_name: couchdb.peer0.court.vehicle.com
+    couchdb.peer0.insurance.vehicle.com:
+        container_name: couchdb.peer0.insurance.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -159,8 +159,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.identityprovider.vehicle.com:
-        container_name: couchdb.peer0.identityprovider.vehicle.com
+    couchdb.peer0.police.vehicle.com:
+        container_name: couchdb.peer0.police.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -199,14 +199,14 @@ services:
         depends_on:
             - orderer.vehicle.com
             - peer0.citizen.vehicle.com
+            - peer0.rto.vehicle.com
+            - peer0.pollution.vehicle.com
+            - peer0.insurance.vehicle.com
             - peer0.police.vehicle.com
-            - peer0.forensics.vehicle.com
-            - peer0.court.vehicle.com
-            - peer0.identityprovider.vehicle.com
             - caCitizen
+            - caRTO
+            - caPollution
+            - caInsurance
             - caPolice
-            - caForensics
-            - caCourt
-            - caIdentityProvider
         networks:
             - testnet
