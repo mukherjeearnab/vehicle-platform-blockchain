@@ -1,0 +1,60 @@
+version: "2"
+
+networks:
+    testnet:
+
+services:
+    couchdb.peer0.citizen.vehicle.com:
+        container_name: couchdb.peer0.citizen.vehicle.com
+        image: hyperledger/fabric-couchdb
+        environment:
+            - COUCHDB_USER=admin
+            - COUCHDB_PASSWORD=adminpw
+        ports:
+            - "5984:5984"
+        networks:
+            - testnet
+
+    couchdb.peer0.police.vehicle.com:
+        container_name: couchdb.peer0.police.vehicle.com
+        image: hyperledger/fabric-couchdb
+        environment:
+            - COUCHDB_USER=admin
+            - COUCHDB_PASSWORD=adminpw
+        ports:
+            - "6984:5984"
+        networks:
+            - testnet
+
+    couchdb.peer0.forensics.vehicle.com:
+        container_name: couchdb.peer0.forensics.vehicle.com
+        image: hyperledger/fabric-couchdb
+        environment:
+            - COUCHDB_USER=admin
+            - COUCHDB_PASSWORD=adminpw
+        ports:
+            - "7984:5984"
+        networks:
+            - testnet
+
+    couchdb.peer0.court.vehicle.com:
+        container_name: couchdb.peer0.court.vehicle.com
+        image: hyperledger/fabric-couchdb
+        environment:
+            - COUCHDB_USER=admin
+            - COUCHDB_PASSWORD=adminpw
+        ports:
+            - "8984:5984"
+        networks:
+            - testnet
+
+    couchdb.peer0.identityprovider.vehicle.com:
+        container_name: couchdb.peer0.identityprovider.vehicle.com
+        image: hyperledger/fabric-couchdb
+        environment:
+            - COUCHDB_USER=admin
+            - COUCHDB_PASSWORD=adminpw
+        ports:
+            - "9984:5984"
+        networks:
+            - testnet
