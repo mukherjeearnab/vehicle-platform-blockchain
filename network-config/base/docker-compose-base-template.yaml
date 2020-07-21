@@ -53,7 +53,7 @@ services:
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
             - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.rto.vehicle.com:8051
             #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
-            - CORE_PEER_LOCALMSPID=PoliceMSP
+            - CORE_PEER_LOCALMSPID=RTOMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
             - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.rto.vehicle.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
@@ -79,7 +79,7 @@ services:
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
             - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.pollution.vehicle.com:9051
             #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
-            - CORE_PEER_LOCALMSPID=ForensicsMSP
+            - CORE_PEER_LOCALMSPID=PollutionMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
             - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.pollution.vehicle.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
@@ -105,7 +105,7 @@ services:
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
             - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.insurance.vehicle.com:10051
             #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
-            - CORE_PEER_LOCALMSPID=CourtMSP
+            - CORE_PEER_LOCALMSPID=InsuranceMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
             - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.insurance.vehicle.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
@@ -131,7 +131,7 @@ services:
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
             - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.police.vehicle.com:11051
             #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
-            - CORE_PEER_LOCALMSPID=IdentityProviderMSP
+            - CORE_PEER_LOCALMSPID=PoliceMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
             - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.police.vehicle.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
