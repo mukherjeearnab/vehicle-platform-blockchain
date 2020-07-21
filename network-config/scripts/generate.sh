@@ -24,28 +24,28 @@ cd ./base
 sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-base.yaml
 
 cd $CURRENT_DIR
-cd ./crypto-config/peerOrganizations/police.vehicle.com/ca/
+cd ./crypto-config/peerOrganizations/rto.vehicle.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
 cd ./base
 sed $OPTS "s/CA2_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-base.yaml
 
 cd $CURRENT_DIR
-cd ./crypto-config/peerOrganizations/forensics.vehicle.com/ca/
+cd ./crypto-config/peerOrganizations/pollution.vehicle.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
 cd ./base
 sed $OPTS "s/CA3_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-base.yaml
 
 cd $CURRENT_DIR
-cd ./crypto-config/peerOrganizations/court.vehicle.com/ca/
+cd ./crypto-config/peerOrganizations/insurance.vehicle.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
 cd ./base
 sed $OPTS "s/CA4_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-base.yaml
 
 cd $CURRENT_DIR
-cd ./crypto-config/peerOrganizations/identityprovider.vehicle.com/ca/
+cd ./crypto-config/peerOrganizations/police.vehicle.com/ca/
 PRIV_KEY=$(ls *_sk)
 cd $CURRENT_DIR
 cd ./base
