@@ -1,12 +1,12 @@
 version: "2"
 
 volumes:
-    orderer.example.com:
-    peer0.citizen.example.com:
-    peer0.police.example.com:
-    peer0.forensics.example.com:
-    peer0.court.example.com:
-    peer0.identityprovider.example.com:
+    orderer.vehicle.com:
+    peer0.citizen.vehicle.com:
+    peer0.police.vehicle.com:
+    peer0.forensics.vehicle.com:
+    peer0.court.vehicle.com:
+    peer0.identityprovider.vehicle.com:
     caCitizen:
     caPolice:
     caForensics:
@@ -17,63 +17,63 @@ networks:
     testnet:
 
 services:
-    orderer.example.com:
+    orderer.vehicle.com:
         extends:
             file: base/docker-compose-base.yaml
-            service: orderer.example.com
-        container_name: orderer.example.com
+            service: orderer.vehicle.com
+        container_name: orderer.vehicle.com
         networks:
             - testnet
 
-    peer0.citizen.example.com:
-        container_name: peer0.citizen.example.com
+    peer0.citizen.vehicle.com:
+        container_name: peer0.citizen.vehicle.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.citizen.example.com
+            service: peer0.citizen.vehicle.com
         networks:
             - testnet
         depends_on:
-            - couchdb.peer0.citizen.example.com
+            - couchdb.peer0.citizen.vehicle.com
 
-    peer0.police.example.com:
-        container_name: peer0.police.example.com
+    peer0.police.vehicle.com:
+        container_name: peer0.police.vehicle.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.police.example.com
+            service: peer0.police.vehicle.com
         networks:
             - testnet
         depends_on:
-            - couchdb.peer0.police.example.com
+            - couchdb.peer0.police.vehicle.com
 
-    peer0.forensics.example.com:
-        container_name: peer0.forensics.example.com
+    peer0.forensics.vehicle.com:
+        container_name: peer0.forensics.vehicle.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.forensics.example.com
+            service: peer0.forensics.vehicle.com
         networks:
             - testnet
         depends_on:
-            - couchdb.peer0.forensics.example.com
+            - couchdb.peer0.forensics.vehicle.com
 
-    peer0.court.example.com:
-        container_name: peer0.court.example.com
+    peer0.court.vehicle.com:
+        container_name: peer0.court.vehicle.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.court.example.com
+            service: peer0.court.vehicle.com
         networks:
             - testnet
         depends_on:
-            - couchdb.peer0.court.example.com
+            - couchdb.peer0.court.vehicle.com
 
-    peer0.identityprovider.example.com:
-        container_name: peer0.identityprovider.example.com
+    peer0.identityprovider.vehicle.com:
+        container_name: peer0.identityprovider.vehicle.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.identityprovider.example.com
+            service: peer0.identityprovider.vehicle.com
         networks:
             - testnet
         depends_on:
-            - couchdb.peer0.identityprovider.example.com
+            - couchdb.peer0.identityprovider.vehicle.com
 
     caCitizen:
         container_name: caCitizen
@@ -115,8 +115,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.citizen.example.com:
-        container_name: couchdb.peer0.citizen.example.com
+    couchdb.peer0.citizen.vehicle.com:
+        container_name: couchdb.peer0.citizen.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -126,8 +126,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.police.example.com:
-        container_name: couchdb.peer0.police.example.com
+    couchdb.peer0.police.vehicle.com:
+        container_name: couchdb.peer0.police.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -137,8 +137,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.forensics.example.com:
-        container_name: couchdb.peer0.forensics.example.com
+    couchdb.peer0.forensics.vehicle.com:
+        container_name: couchdb.peer0.forensics.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -148,8 +148,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.court.example.com:
-        container_name: couchdb.peer0.court.example.com
+    couchdb.peer0.court.vehicle.com:
+        container_name: couchdb.peer0.court.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -159,8 +159,8 @@ services:
         networks:
             - testnet
 
-    couchdb.peer0.identityprovider.example.com:
-        container_name: couchdb.peer0.identityprovider.example.com
+    couchdb.peer0.identityprovider.vehicle.com:
+        container_name: couchdb.peer0.identityprovider.vehicle.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -181,13 +181,13 @@ services:
             #- FABRIC_LOGGING_SPEC=DEBUG
             - FABRIC_LOGGING_SPEC=INFO
             - CORE_PEER_ID=cli
-            - CORE_PEER_ADDRESS=peer0.citizen.example.com:7051
+            - CORE_PEER_ADDRESS=peer0.citizen.vehicle.com:7051
             - CORE_PEER_LOCALMSPID=CitizenMSP
             - CORE_PEER_TLS_ENABLED=true
-            - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.example.com/peers/peer0.citizen.example.com/tls/server.crt
-            - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.example.com/peers/peer0.citizen.example.com/tls/server.key
-            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.example.com/peers/peer0.citizen.example.com/tls/ca.crt
-            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.example.com/users/Admin@citizen.example.com/msp
+            - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls/server.crt
+            - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls/server.key
+            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls/ca.crt
+            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/users/Admin@citizen.vehicle.com/msp
         working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
         command: /bin/bash
         volumes:
@@ -197,12 +197,12 @@ services:
             - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
             - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         depends_on:
-            - orderer.example.com
-            - peer0.citizen.example.com
-            - peer0.police.example.com
-            - peer0.forensics.example.com
-            - peer0.court.example.com
-            - peer0.identityprovider.example.com
+            - orderer.vehicle.com
+            - peer0.citizen.vehicle.com
+            - peer0.police.vehicle.com
+            - peer0.forensics.vehicle.com
+            - peer0.court.vehicle.com
+            - peer0.identityprovider.vehicle.com
             - caCitizen
             - caPolice
             - caForensics
