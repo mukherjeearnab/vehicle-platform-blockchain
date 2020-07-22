@@ -1,22 +1,22 @@
 Profile Manager: # Create Profiles
     RegisterCitizen: Register a new Citizen
     RegisterRto: Register new RTO.
-    RegisterRtoEmployee: Register new RTO employee.
+    RegisterRtoE: Register new RTO employee.
     RegisterInsuranceCompany: Register a new Insurance Company.
-    RegisterInsuranceEmployee: Register a new Insurance Employee.
+    RegisterInsuranceE: Register a new Insurance Employee.
     RegisterPollutionCompany: Register a new Pollution Company.
-    RegisterPollutionEmployee: Register a new Pollution Employee.
+    RegisterPollutionE: Register a new Pollution Employee.
     GetProfile: Returns Profile Details of users.
 
 RTOservices:
-    NewDrivingLicenceApplication: Create new Driving Licence Application.
-    NewVehicleRegistrationApplication: Create new Vehicle Registration Application.
-    GetDrivingLicenceApplication: Get details of Driving Licence Application.
-    GetVehicleRegistrationApplication: Get details of Vehicle Registration Application.
-    UpdateDrivingLicenceApplication: Update Driving Licence Application
-    UpdateVehicleRegistrationApplication: Update Vehicle Registration Application
-    CreateDrivingLicence: Set Driving Licence Number & Create New Licence
-    GetDrivingLicence: Get Driving Licence Details
+    NewDLApplication: Create new Driving Licence Application.
+    NewVRApplication: Create new Vehicle Registration Application.
+    GetDLApplication: Get details of Driving Licence Application.
+    GetVRApplication: Get details of Vehicle Registration Application.
+    UpdateDLApplication: Update Driving Licence Application
+    UpdateVRApplication: Update Vehicle Registration Application
+    CreateDL: Set Driving Licence Number & Create New Licence
+    GetDL: Get Driving Licence Details
 
 Vehicle:
     CreateVehicleProfile: Set Vehicle Registration Number & Create New Vehicle Profile
@@ -26,8 +26,8 @@ Vehicle:
     TransferOwnership: Transfer ownership from current owner to new owner
 
 Pollution:
-    CreateNewPollutionCertificate: Create New Pollution Certificate
-    GetPollutionCertificate: Get Details of Pollution Certificate
+    CreatePUCC: Create New Pollution Certificate
+    GetPUCC: Get Details of Pollution Certificate
 
 Insurance:
     PurchaseInsurancePolicy: Purchase Insurance Policy
@@ -35,5 +35,5 @@ Insurance:
     ApproveInsuranceClaim: Approve Insurance Claim
 
 TrafficViolation:
-    FileTrafficViolation: File a new Traffic Violation
-    GetTrafficViolation: Get details of a Traffic Violation
+    FileTV: File a new Traffic Violation
+    GetTV: Get details of a Traffic Violation
