@@ -4,6 +4,7 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"fmt"
+	"github.com/hyperledger/fabric/common/util"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/hyperledger/fabric/core/chaincode/shim/ext/cid"
 	sc "github.com/hyperledger/fabric/protos/peer"
@@ -34,10 +35,10 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 	fcn, params := stub.GetFunctionAndParameters()
 	fmt.Println("Invoke()", fcn, params)
 
-	if fcn == "createCert" {
-		return cc.createCert(stub, params)
-	} else if fcn == "createCert" {
-		return cc.getCert(stub, params)
+	if fcn == "createPUCC" {
+		return cc.createPUCC(stub, params)
+	} else if fcn == "getPUCC" {
+		return cc.getPUCC(stub, params)
 	} else {
 		fmt.Println("Invoke() did not find func: " + fcn)
 		return shim.Error("Received unknown function invocation!")
@@ -45,7 +46,7 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 }
 
 // Function to add new Certificate
-func (cc *Chaincode) createCert(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+func (cc *Chaincode) createPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
 	creatorOrg, creatorCertIssuer, sender, err := getTxCreatorInfo(stub)
 	if !authenticatePollution(creatorOrg, creatorCertIssuer) {
@@ -98,21 +99,19 @@ func (cc *Chaincode) createCert(stub shim.ChaincodeStubInterface, params []strin
 		return shim.Error(err.Error())
 	}
 
-	// Add Certificate ID to The Investigation with InvestigationID
-	/* UPDATE THIS WHEN VEHICLE_CC IS COMPLETE!
-	args := util.ToChaincodeArgs("addCertificate", InvestigationID, ID)
-	response := stub.InvokeChaincode("investigation_cc", args, "mainchannel")
+	// Add Certificate ID to The Vehicle with VehicleRegNo
+	args := util.ToChaincodeArgs("addPollutionCertificate", VehicleRegNo, CertID)
+	response := stub.InvokeChaincode("vehicle_cc", args, "mainchannel")
 	if response.Status != shim.OK {
 		return shim.Error(response.Message)
 	}
-	*/
 
 	// Returned on successful execution of the function
 	return shim.Success(nil)
 }
 
 // Function to read an Certificate
-func (cc *Chaincode) getCert(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+func (cc *Chaincode) getPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check if sufficient Params passed
 	if len(params) != 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
