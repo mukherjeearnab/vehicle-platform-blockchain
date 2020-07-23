@@ -15,15 +15,14 @@ import (
 type Chaincode struct {
 }
 
-// Definition of the Evidence structure
-type evidence struct {
-	Type            string `json:"Type"`
-	ID              string `json:"ID"`
-	MimeType        string `json:"MimeType"`
-	Extention       string `json:"Extention"`
-	Description     string `json:"Description"`
-	DateTime        int    `json:"DateTime"`
-	InvestigationID string `json:"InvestigationID"`
+// Definition of the Certificate structure
+type certificate struct {
+	Type         string `json:"Type"`
+	CertID       string `json:"CertID"`
+	DateTime     int    `json:"DateTime"`
+	VehicleRegNo string `json:"VehicleRegNo"`
+	Employee     string `json:"Employee"`
+	Content      string `json:"Content"`
 }
 
 // Init is called when the chaincode is instantiated by the blockchain network.
@@ -36,74 +35,73 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 	fcn, params := stub.GetFunctionAndParameters()
 	fmt.Println("Invoke()", fcn, params)
 
-	if fcn == "addEvidence" {
-		return cc.addEvidence(stub, params)
-	} else if fcn == "readEvidence" {
-		return cc.readEvidence(stub, params)
+	if fcn == "createPUCC" {
+		return cc.createPUCC(stub, params)
+	} else if fcn == "getPUCC" {
+		return cc.getPUCC(stub, params)
 	} else {
 		fmt.Println("Invoke() did not find func: " + fcn)
 		return shim.Error("Received unknown function invocation!")
 	}
 }
 
-// Function to add new Evidence
-func (cc *Chaincode) addEvidence(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+// Function to add new Certificate
+func (cc *Chaincode) createPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
-	creatorOrg, creatorCertIssuer, err := getTxCreatorInfo(stub)
-	if !authenticatePoFoCi(creatorOrg, creatorCertIssuer) {
+	creatorOrg, creatorCertIssuer, creator, err := getTxCreatorInfo(stub)
+	if !authenticatePollution(creatorOrg, creatorCertIssuer) {
 		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
 	}
 
 	// Check if sufficient Params passed
-	if len(params) != 6 {
+	if len(params) != 4 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
 	}
 
 	// Check if Params are non-empty
-	for a := 0; a < 6; a++ {
+	for a := 0; a < 4; a++ {
 		if len(params[a]) <= 0 {
 			return shim.Error("Argument must be a non-empty string")
 		}
 	}
 
-	ID := params[0]
-	MimeType := params[1]
-	Extention := params[2]
-	Description := params[3]
-	DateTime := params[4]
-	InvestigationID := params[5]
+	CertID := params[0]
+	DateTime := params[1]
+	VehicleRegNo := params[2]
+	Content := params[3]
+	Employee := creator
 	DateTimeI, err := strconv.Atoi(DateTime)
 	if err != nil {
 		return shim.Error("Error: Invalid DateTime!")
 	}
 
-	// Check if Evidence exists with Key => params[0]
-	evidenceAsBytes, err := stub.GetState(ID)
+	// Check if Certificate exists with Key => params[0]
+	certificateAsBytes, err := stub.GetState(CertID)
 	if err != nil {
-		return shim.Error("Failed to check if Evidence exists!")
-	} else if evidenceAsBytes != nil {
-		return shim.Error("Evidence Already Exists!")
+		return shim.Error("Failed to check if Certificate exists!")
+	} else if certificateAsBytes != nil {
+		return shim.Error("Certificate Already Exists!")
 	}
 
-	// Generate Evidence from params provided
-	evidence := &evidence{"evidence",
-		ID, MimeType, Extention, Description, DateTimeI, InvestigationID}
+	// Generate Certificate from params provided
+	certificate := &certificate{"POLUTN_CERT",
+		CertID, DateTimeI, VehicleRegNo, Employee, Content}
 
-	// Get JSON bytes of Evidence struct
-	evidenceJSONasBytes, err := json.Marshal(evidence)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	// Put State of newly generated Evidence with Key => params[0]
-	err = stub.PutState(ID, evidenceJSONasBytes)
+	// Get JSON bytes of Certificate struct
+	certificateJSONasBytes, err := json.Marshal(certificate)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	// Add Evidence ID to The Investigation with InvestigationID
-	args := util.ToChaincodeArgs("addEvidence", InvestigationID, ID)
-	response := stub.InvokeChaincode("investigation_cc", args, "mainchannel")
+	// Put State of newly generated Certificate with Key => params[0]
+	err = stub.PutState(CertID, certificateJSONasBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Add Certificate ID to The Vehicle with VehicleRegNo
+	args := util.ToChaincodeArgs("addPollutionCertificate", VehicleRegNo, CertID)
+	response := stub.InvokeChaincode("vehicle_cc", args, "mainchannel")
 	if response.Status != shim.OK {
 		return shim.Error(response.Message)
 	}
@@ -112,8 +110,8 @@ func (cc *Chaincode) addEvidence(stub shim.ChaincodeStubInterface, params []stri
 	return shim.Success(nil)
 }
 
-// Function to read an Evidence
-func (cc *Chaincode) readEvidence(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+// Function to read an Certificate
+func (cc *Chaincode) getPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check if sufficient Params passed
 	if len(params) != 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
@@ -124,18 +122,18 @@ func (cc *Chaincode) readEvidence(stub shim.ChaincodeStubInterface, params []str
 		return shim.Error("1st argument must be a non-empty string")
 	}
 
-	// Get State of Evidence with Key => params[0]
-	evidenceAsBytes, err := stub.GetState(params[0])
+	// Get State of Certificate with Key => params[0]
+	certificateAsBytes, err := stub.GetState(params[0])
 	if err != nil {
 		jsonResp := "{\"Error\":\"Failed to get state for " + params[0] + "\"}"
 		return shim.Error(jsonResp)
-	} else if evidenceAsBytes == nil {
-		jsonResp := "{\"Error\":\"Evidence does not exist!\"}"
+	} else if certificateAsBytes == nil {
+		jsonResp := "{\"Error\":\"Certificate does not exist!\"}"
 		return shim.Error(jsonResp)
 	}
 
 	// Returned on successful execution of the function
-	return shim.Success(evidenceAsBytes)
+	return shim.Success(certificateAsBytes)
 }
 
 // ---------------------------------------------
@@ -146,7 +144,7 @@ func (cc *Chaincode) readEvidence(stub shim.ChaincodeStubInterface, params []str
 // ++++++++++++++
 
 // Get Tx Creator Info
-func getTxCreatorInfo(stub shim.ChaincodeStubInterface) (string, string, error) {
+func getTxCreatorInfo(stub shim.ChaincodeStubInterface) (string, string, string, error) {
 	var mspid string
 	var err error
 	var cert *x509.Certificate
@@ -154,19 +152,19 @@ func getTxCreatorInfo(stub shim.ChaincodeStubInterface) (string, string, error) 
 
 	if err != nil {
 		fmt.Printf("Error getting MSP identity: %sn", err.Error())
-		return "", "", err
+		return "", "", "", err
 	}
 
 	cert, err = cid.GetX509Certificate(stub)
 	if err != nil {
 		fmt.Printf("Error getting client certificate: %sn", err.Error())
-		return "", "", err
+		return "", "", "", err
 	}
 
-	return mspid, cert.Issuer.CommonName, nil
+	return mspid, cert.Issuer.CommonName, cert.Subject.CommonName, nil
 }
 
-// Authenticate => Police / Forensics / Citizen
-func authenticatePoFoCi(mspID string, certCN string) bool {
+// Authenticate => Pollution
+func authenticatePollution(mspID string, certCN string) bool {
 	return (mspID == "PoliceMSP") && (certCN == "ca.police.example.com") || (mspID == "ForensicsMSP") && (certCN == "ca.forensics.example.com") || (mspID == "CitizenMSP") && (certCN == "ca.citizen.example.com")
 }

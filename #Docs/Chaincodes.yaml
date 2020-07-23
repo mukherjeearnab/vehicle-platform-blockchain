@@ -6,6 +6,8 @@ Profile Manager: # Create Profiles
     RegisterInsuranceE: Register a new Insurance Employee.
     RegisterPollutionCompany: Register a new Pollution Company.
     RegisterPollutionE: Register a new Pollution Employee.
+    RegisterPoliceStation: Register a new Police Station.
+    RegisterPoliceOfficer: Register a new Police Officer.
     GetProfile: Returns Profile Details of users.
 
 RTOservices:
@@ -30,8 +32,9 @@ Pollution:
     GetPUCC: Get Details of Pollution Certificate
 
 Insurance:
-    PurchaseInsurancePolicy: Purchase Insurance Policy
-    ClaimInsurancePolicy: Claim on a Insurance Policy
+    AddInsurancePolicy: Purchase Insurance Policy
+    ClaimInsurancePolicy: Claim on an Insurance Policy
+    UpdateInsuranceClaim: Update status of Insurance Claim
     ApproveInsuranceClaim: Approve Insurance Claim
 
 TrafficViolation:
