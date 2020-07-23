@@ -4,7 +4,6 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"fmt"
-	"github.com/hyperledger/fabric/common/util"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/hyperledger/fabric/core/chaincode/shim/ext/cid"
 	sc "github.com/hyperledger/fabric/protos/peer"
@@ -15,14 +14,17 @@ import (
 type Chaincode struct {
 }
 
-// Definition of the Certificate structure
-type certificate struct {
-	Type         string `json:"Type"`
-	CertID       string `json:"CertID"`
-	DateTime     int    `json:"DateTime"`
-	VehicleRegNo string `json:"VehicleRegNo"`
-	Employee     string `json:"Employee"`
-	Content      string `json:"Content"`
+// Definition of the TV structure
+type tv struct {
+	Type          string `json:"Type"`
+	TVID          string `json:"TVID"`
+	DateIncident  int    `json:"DateIncident"`
+	DateFiling    int    `json:"DateFiling"`
+	OfficerID     string `json:"OfficerID"`
+	LicenseNumber string `json:"LicenseNumber"`
+	VehicleRegNo  string `json:"VehicleRegNo"`
+	Content       string `json:"Content"`
+	Evidence      string `json:"Evidence"`
 }
 
 // Init is called when the chaincode is instantiated by the blockchain network.
@@ -35,10 +37,10 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 	fcn, params := stub.GetFunctionAndParameters()
 	fmt.Println("Invoke()", fcn, params)
 
-	if fcn == "createPUCC" {
-		return cc.createPUCC(stub, params)
-	} else if fcn == "getPUCC" {
-		return cc.getPUCC(stub, params)
+	if fcn == "fileTV" {
+		return cc.fileTV(stub, params)
+	} else if fcn == "getTV" {
+		return cc.getTV(stub, params)
 	} else {
 		fmt.Println("Invoke() did not find func: " + fcn)
 		return shim.Error("Received unknown function invocation!")
@@ -46,64 +48,65 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 }
 
 // Function to add new Certificate
-func (cc *Chaincode) createPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+func (cc *Chaincode) fileTV(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
 	creatorOrg, creatorCertIssuer, creator, err := getTxCreatorInfo(stub)
-	if !authenticatePollution(creatorOrg, creatorCertIssuer) {
+	if !authenticatePolice(creatorOrg, creatorCertIssuer) {
 		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
 	}
 
 	// Check if sufficient Params passed
-	if len(params) != 4 {
-		return shim.Error("Incorrect number of arguments. Expecting 2")
+	if len(params) != 7 {
+		return shim.Error("Incorrect number of arguments. Expecting 6")
 	}
 
 	// Check if Params are non-empty
-	for a := 0; a < 4; a++ {
+	for a := 0; a < 7; a++ {
 		if len(params[a]) <= 0 {
 			return shim.Error("Argument must be a non-empty string")
 		}
 	}
 
-	CertID := params[0]
-	DateTime := params[1]
-	VehicleRegNo := params[2]
-	Content := params[3]
-	Employee := creator
-	DateTimeI, err := strconv.Atoi(DateTime)
+	TVID := params[0]
+	DateIncident := params[1]
+	DateFiling := params[2]
+	OfficerID := creator
+	LicenseNumber := params[3]
+	VehicleRegNo := params[4]
+	Content := params[5]
+	Evidence := params[6]
+
+	DateIncidentI, err := strconv.Atoi(DateIncident)
 	if err != nil {
-		return shim.Error("Error: Invalid DateTime!")
+		return shim.Error("Error: Invalid DateIncident!")
+	}
+	DateFilingI, err := strconv.Atoi(DateFiling)
+	if err != nil {
+		return shim.Error("Error: Invalid DateFiling!")
 	}
 
-	// Check if Certificate exists with Key => params[0]
-	certificateAsBytes, err := stub.GetState(CertID)
+	// Check if TV exists with Key => params[0]
+	tvAsBytes, err := stub.GetState(TVID)
 	if err != nil {
-		return shim.Error("Failed to check if Certificate exists!")
-	} else if certificateAsBytes != nil {
-		return shim.Error("Certificate Already Exists!")
+		return shim.Error("Failed to check if TV exists!")
+	} else if tvAsBytes != nil {
+		return shim.Error("TV Already Exists!")
 	}
 
-	// Generate Certificate from params provided
-	certificate := &certificate{"POLUTN_CERT",
-		CertID, DateTimeI, VehicleRegNo, Employee, Content}
+	// Generate TV from params provided
+	tv := &tv{"TRFC_VIO",
+		TVID, DateIncidentI, DateFilingI, OfficerID, LicenseNumber, VehicleRegNo, Content, Evidence}
 
-	// Get JSON bytes of Certificate struct
-	certificateJSONasBytes, err := json.Marshal(certificate)
+	// Get JSON bytes of TV struct
+	tvJSONasBytes, err := json.Marshal(tv)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	// Put State of newly generated Certificate with Key => params[0]
-	err = stub.PutState(CertID, certificateJSONasBytes)
+	// Put State of newly generated TV with Key => params[0]
+	err = stub.PutState(TVID, tvJSONasBytes)
 	if err != nil {
 		return shim.Error(err.Error())
-	}
-
-	// Add Certificate ID to The Vehicle with VehicleRegNo
-	args := util.ToChaincodeArgs("addPollutionCertificate", VehicleRegNo, CertID)
-	response := stub.InvokeChaincode("vehicle_cc", args, "mainchannel")
-	if response.Status != shim.OK {
-		return shim.Error(response.Message)
 	}
 
 	// Returned on successful execution of the function
@@ -111,7 +114,7 @@ func (cc *Chaincode) createPUCC(stub shim.ChaincodeStubInterface, params []strin
 }
 
 // Function to read an Certificate
-func (cc *Chaincode) getPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+func (cc *Chaincode) getTV(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check if sufficient Params passed
 	if len(params) != 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
@@ -122,18 +125,18 @@ func (cc *Chaincode) getPUCC(stub shim.ChaincodeStubInterface, params []string) 
 		return shim.Error("1st argument must be a non-empty string")
 	}
 
-	// Get State of Certificate with Key => params[0]
-	certificateAsBytes, err := stub.GetState(params[0])
+	// Get State of TV with Key => params[0]
+	tvAsBytes, err := stub.GetState(params[0])
 	if err != nil {
 		jsonResp := "{\"Error\":\"Failed to get state for " + params[0] + "\"}"
 		return shim.Error(jsonResp)
-	} else if certificateAsBytes == nil {
+	} else if tvAsBytes == nil {
 		jsonResp := "{\"Error\":\"Certificate does not exist!\"}"
 		return shim.Error(jsonResp)
 	}
 
 	// Returned on successful execution of the function
-	return shim.Success(certificateAsBytes)
+	return shim.Success(tvAsBytes)
 }
 
 // ---------------------------------------------
@@ -165,6 +168,6 @@ func getTxCreatorInfo(stub shim.ChaincodeStubInterface) (string, string, string,
 }
 
 // Authenticate => Pollution
-func authenticatePollution(mspID string, certCN string) bool {
-	return (mspID == "PoliceMSP") && (certCN == "ca.police.example.com") || (mspID == "ForensicsMSP") && (certCN == "ca.forensics.example.com") || (mspID == "CitizenMSP") && (certCN == "ca.citizen.example.com")
+func authenticatePolice(mspID string, certCN string) bool {
+	return (mspID == "PoliceMSP") && (certCN == "ca.police.vehicle.com")
 }
