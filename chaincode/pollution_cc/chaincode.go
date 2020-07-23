@@ -48,7 +48,7 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 // Function to add new Certificate
 func (cc *Chaincode) createPUCC(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
-	creatorOrg, creatorCertIssuer, sender, err := getTxCreatorInfo(stub)
+	creatorOrg, creatorCertIssuer, creator, err := getTxCreatorInfo(stub)
 	if !authenticatePollution(creatorOrg, creatorCertIssuer) {
 		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
 	}
@@ -69,7 +69,7 @@ func (cc *Chaincode) createPUCC(stub shim.ChaincodeStubInterface, params []strin
 	DateTime := params[1]
 	VehicleRegNo := params[2]
 	Content := params[3]
-	Employee := sender
+	Employee := creator
 	DateTimeI, err := strconv.Atoi(DateTime)
 	if err != nil {
 		return shim.Error("Error: Invalid DateTime!")
