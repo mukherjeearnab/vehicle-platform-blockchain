@@ -84,7 +84,7 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 		return cc.newDLApplication(stub, params)
 	} else if fcn == "newVRApplication" {
 		return cc.newVRApplication(stub, params)
-	} else if fcn == "readApplication" {
+	} else if fcn == "getDLVRApplication" {
 		return cc.getDLVRApplication(stub, params)
 	} else if fcn == "updateDLApplication" {
 		return cc.updateDLApplication(stub, params)
