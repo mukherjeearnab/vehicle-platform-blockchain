@@ -375,3 +375,13 @@ func getTxCreatorInfo(stub shim.ChaincodeStubInterface) (string, string, string,
 func authenticateRTO(mspID string, certCN string) bool {
 	return (mspID == "RTOMSP") && (certCN == "ca.rto.vehicle.com")
 }
+
+// Authenticate => Insurance
+func authenticateInsurance(mspID string, certCN string) bool {
+	return (mspID == "InsuranceMSP") && (certCN == "ca.insurance.vehicle.com")
+}
+
+// Authenticate => Pollution
+func authenticatePollution(mspID string, certCN string) bool {
+	return (mspID == "PollutionMSP") && (certCN == "ca.pollution.vehicle.com")
+}

@@ -102,6 +102,10 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 
 	if fcn == "registerCitizen" {
 		return cc.registerCitizen(stub, params)
+	} else if fcn == "addVehicle" {
+		return cc.addVehicle(stub, params)
+	} else if fcn == "addLicense" {
+		return cc.addLicense(stub, params)
 	} else if fcn == "registerRto" {
 		return cc.registerRto(stub, params)
 	} else if fcn == "registerRtoE" {
@@ -172,6 +176,122 @@ func (cc *Chaincode) registerCitizen(stub shim.ChaincodeStubInterface, params []
 
 	// Get JSON bytes of Citizen struct
 	citizenJSONasBytes, err := json.Marshal(citizen)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Put State of newly generated Citizen with Key => params[0]
+	err = stub.PutState(UID, citizenJSONasBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Returned on successful execution of the function
+	return shim.Success(nil)
+}
+
+// Function to add new Vehicle to Citizen Profile
+func (cc *Chaincode) addVehicle(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+	// Check Access
+	creatorOrg, creatorCertIssuer, err := getTxCreatorInfo(stub)
+	if !authenticateRTO(creatorOrg, creatorCertIssuer) {
+		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
+	}
+
+	// Check if sufficient Params passed
+	if len(params) != 2 {
+		return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	// Check if Params are non-empty
+	for a := 0; a < 2; a++ {
+		if len(params[a]) <= 0 {
+			return shim.Error("Argument must be a non-empty string")
+		}
+	}
+
+	// Copy the Values from params[]
+	UID := params[0]
+	RegNo := params[1]
+
+	// Check if Citizen exists with Key => UID
+	citizenAsBytes, err := stub.GetState(UID)
+	if err != nil {
+		return shim.Error("Failed to get Citizen Details!")
+	} else if citizenAsBytes == nil {
+		return shim.Error("Error: Citizen Does NOT Exist!")
+	}
+
+	// Create Update struct var
+	citizenToUpdate := citizen{}
+	err = json.Unmarshal(citizenAsBytes, &citizenToUpdate) //unmarshal it aka JSON.parse()
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Update Citizen.Vehicles to append => RegNo
+	citizenToUpdate.Vehicles = append(citizenToUpdate.Vehicles, RegNo)
+
+	// Get JSON bytes of Citizen struct
+	citizenJSONasBytes, err := json.Marshal(citizenToUpdate)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Put State of newly generated Citizen with Key => params[0]
+	err = stub.PutState(UID, citizenJSONasBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Returned on successful execution of the function
+	return shim.Success(nil)
+}
+
+// Function to add new License to Citizen Profile
+func (cc *Chaincode) addLicense(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+	// Check Access
+	creatorOrg, creatorCertIssuer, err := getTxCreatorInfo(stub)
+	if !authenticateRTO(creatorOrg, creatorCertIssuer) {
+		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
+	}
+
+	// Check if sufficient Params passed
+	if len(params) != 2 {
+		return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	// Check if Params are non-empty
+	for a := 0; a < 2; a++ {
+		if len(params[a]) <= 0 {
+			return shim.Error("Argument must be a non-empty string")
+		}
+	}
+
+	// Copy the Values from params[]
+	UID := params[0]
+	License := params[1]
+
+	// Check if Citizen exists with Key => RegNo
+	citizenAsBytes, err := stub.GetState(UID)
+	if err != nil {
+		return shim.Error("Failed to get Citizen Details!")
+	} else if citizenAsBytes == nil {
+		return shim.Error("Error: Citizen Does NOT Exist!")
+	}
+
+	// Create Update struct var
+	citizenToUpdate := citizen{}
+	err = json.Unmarshal(citizenAsBytes, &citizenToUpdate) //unmarshal it aka JSON.parse()
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Update Citizen.LicenseNumbers to append => License
+	citizenToUpdate.LicenseNumbers = append(citizenToUpdate.LicenseNumbers, License)
+
+	// Get JSON bytes of Citizen struct
+	citizenJSONasBytes, err := json.Marshal(citizenToUpdate)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
