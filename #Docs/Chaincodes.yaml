@@ -15,12 +15,11 @@ Profile Manager: # Create Profiles
 RTOservices:
     NewDLApplication: Create new Driving Licence Application.
     NewVRApplication: Create new Vehicle Registration Application.
-    GetDLApplication: Get details of Driving Licence Application.
-    GetVRApplication: Get details of Vehicle Registration Application.
-    UpdateDLApplication: Update Driving Licence Application
-    UpdateVRApplication: Update Vehicle Registration Application
-    CreateDL: Set Driving Licence Number & Create New Licence
-    GetDL: Get Driving Licence Details
+    GetDLVRApplication: Get details of Driving Licence Application & Vehicle Registration Application.
+    UpdateDLApplication: Update Driving Licence Application.
+    UpdateVRApplication: Update Vehicle Registration Application.
+    CreateDL: Set Driving Licence Number & Create New Licence.
+    GetDL: Get Driving Licence Details.
 
 Vehicle:
     CreateVehicleProfile: Set Vehicle Registration Number & Create New Vehicle Profile
