@@ -24,7 +24,7 @@ DrivingLicence:
     UID: UID of Licence Holder.
     VehicleType: Vehicle Type for which Licience issued e.g. "LMV", "GEARED TWO WHEELER", "GEARLESS TWO WHEELER".
     ExpiryDate: Date When Licence Expires.
-    Employee:
+    Employee: Employee ID who Issued the License.
 
 InsurancePolicy:
     Type: "INSRNS_PLCY"
@@ -102,11 +102,11 @@ VehicleRegApplication:
     Model: Model of Vehicle e.g. "MX5 Miata".
     ModelVariant: Model Variant of Vehicle e.g. "Roadster GT 2.0 auto".
     ModelYear: Model Year of Vehicle e.g. "2019".
-    Color:
+    Color: Color of the Vehicle.
     EngineNo: Engine Number of Vehicle.
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
-    Creator:
+    Creator: UID of Application Creator.
     Status: # Any changes that happens to the application progress noted here.
         - _index:
               Date: Date of progress change.
