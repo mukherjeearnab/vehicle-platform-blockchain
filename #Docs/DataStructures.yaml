@@ -147,7 +147,7 @@ InsuranceClaim:
               Date: Date of progress change.
               Content: Content to describe the current status.
               Employee: Employee ID of the one who changes the status.
-    Approve:
+    Approve: Bool to set true if Approved else false.
 
 TrafficViolation:
     Type: "TRFC_VIO"

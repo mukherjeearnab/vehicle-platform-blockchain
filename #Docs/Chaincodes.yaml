@@ -1,7 +1,7 @@
 Profile Manager: # Create Profiles
-    RegisterCitizen: Register a new Citizen
-    AddVehicle:
-    AddLicense:
+    RegisterCitizen: Register a new Citizen.
+    AddVehicle: Add Vehicle RegNo to CItizen Profile.
+    AddLicense: Add License Number to Citizen Profile.
     RegisterRto: Register new RTO.
     RegisterRtoE: Register new RTO employee.
     RegisterInsuranceCompany: Register a new Insurance Company.
@@ -35,7 +35,7 @@ Pollution:
 
 Insurance:
     AddInsurancePolicy: Purchase Insurance Policy
-    ReadInsurancePolicyClaim:
+    ReadInsurancePolicyClaim: Read Data in Insurance Policy or Claim
     ClaimInsurancePolicy: Claim on an Insurance Policy
     UpdateInsuranceClaim: Update status of Insurance Claim
     ApproveInsuranceClaim: Approve Insurance Claim
