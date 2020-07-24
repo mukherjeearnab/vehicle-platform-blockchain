@@ -299,7 +299,7 @@ func (cc *Chaincode) transferOwnership(stub shim.ChaincodeStubInterface, params 
 	// Copy the Values from params[]
 	RegNo := params[0]
 	Curr := params[1]
-	Date := params[1]
+	Date := params[2]
 	DateI, err := strconv.Atoi(Date)
 	if err != nil {
 		return shim.Error("Error: Invalid Date!")
