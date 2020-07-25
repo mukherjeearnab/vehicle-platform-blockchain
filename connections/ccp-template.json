@@ -1,5 +1,5 @@
 {
-    "name": "supply-chain-producer",
+    "name": "vehicle-platform-ccp",
     "version": "1.0.0",
     "client": {
         "organization": "${ORG}",
