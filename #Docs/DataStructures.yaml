@@ -9,6 +9,7 @@ Vehicle:
     EngineNo: Engine Number of Vehicle.
     ChassisNo: Chassis Number of Vehicle.
     Owner: UID of Owner.
+    Employee:
     Insurance: Array of Insurance IDs purchased for Vehicle.
     PollutionCert: Array of Pollution Certificates.
     OwnershipHistory: # Any ownership changes are noted here.

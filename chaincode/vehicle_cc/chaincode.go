@@ -34,6 +34,7 @@ type vehicle struct {
 	EngineNo         string      `json:"EngineNo"`
 	ChassisNo        string      `json:"ChassisNo"`
 	Owner            string      `json:"Owner"`
+	Employee         string      `json:"Employee"`
 	Insurance        []string    `json:"Insurance"`
 	PollutionCert    []string    `json:"PollutionCert"`
 	OwnershipHistory []ownership `json:"OwnershipHistory"`
@@ -94,6 +95,7 @@ func (cc *Chaincode) createVehicleProfile(stub shim.ChaincodeStubInterface, para
 	EngineNo := params[6]
 	ChassisNo := params[7]
 	Owner := params[8]
+	Employee := creator
 	var Insurance []string
 	var PollutionCert []string
 	var OwnershipHistory []ownership
@@ -109,7 +111,7 @@ func (cc *Chaincode) createVehicleProfile(stub shim.ChaincodeStubInterface, para
 	// Generate Vehicle from params provided
 	vehicle := &vehicle{"VEHCL",
 		RegNo, Make, Model, ModelVariant, ModelYear, Color,
-		EngineNo, ChassisNo, Owner, Insurance, PollutionCert, OwnershipHistory}
+		EngineNo, ChassisNo, Owner, Employee, Insurance, PollutionCert, OwnershipHistory}
 
 	// Get JSON bytes of Vehicle struct
 	vehicleJSONasBytes, err := json.Marshal(vehicle)
@@ -163,7 +165,7 @@ func (cc *Chaincode) getVehicleProfile(stub shim.ChaincodeStubInterface, params 
 // Function to add new Pollution Certificate
 func (cc *Chaincode) addPollutionCertificate(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
-	creatorOrg, creatorCertIssuer, creator, err := getTxCreatorInfo(stub)
+	creatorOrg, creatorCertIssuer, _, err := getTxCreatorInfo(stub)
 	if !authenticatePollution(creatorOrg, creatorCertIssuer) {
 		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
 	}
@@ -221,7 +223,7 @@ func (cc *Chaincode) addPollutionCertificate(stub shim.ChaincodeStubInterface, p
 // Function to add new Insurance Policy
 func (cc *Chaincode) addInsurancePolicy(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
-	creatorOrg, creatorCertIssuer, creator, err := getTxCreatorInfo(stub)
+	creatorOrg, creatorCertIssuer, _, err := getTxCreatorInfo(stub)
 	if !authenticateInsurance(creatorOrg, creatorCertIssuer) {
 		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
 	}

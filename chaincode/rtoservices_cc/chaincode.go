@@ -190,6 +190,7 @@ func (cc *Chaincode) newVRApplication(stub shim.ChaincodeStubInterface, params [
 	EngineNo := params[7]
 	ChassisNo := params[8]
 	Owner := params[9]
+	Creator := creator
 	var Status []status
 	var Registration registration
 
@@ -209,7 +210,7 @@ func (cc *Chaincode) newVRApplication(stub shim.ChaincodeStubInterface, params [
 	// Generate Application from params provided
 	application := &vrapp{"VEHCL_RA",
 		ApplicationID, DateTimeI, Make, Model, ModelVariant, ModelYear,
-		Color, EngineNo, ChassisNo, Owner, creator, Status, Registration}
+		Color, EngineNo, ChassisNo, Owner, Creator, Status, Registration}
 
 	// Get JSON bytes of Application struct
 	applicationJSONasBytes, err := json.Marshal(application)
@@ -409,6 +410,7 @@ func (cc *Chaincode) createDL(stub shim.ChaincodeStubInterface, params []string)
 	UID := params[1]
 	VehicleType := params[2]
 	ExpiryDate := params[3]
+	Employee := creator
 
 	ExpiryDateI, err := strconv.Atoi(ExpiryDate)
 	if err != nil {
@@ -425,7 +427,7 @@ func (cc *Chaincode) createDL(stub shim.ChaincodeStubInterface, params []string)
 
 	// Generate License from params provided
 	license := &dlicense{"DRVLCN",
-		LicenseNumber, UID, VehicleType, ExpiryDateI, creator}
+		LicenseNumber, UID, VehicleType, ExpiryDateI, Employee}
 
 	// Get JSON bytes of License struct
 	licenseJSONasBytes, err := json.Marshal(license)
