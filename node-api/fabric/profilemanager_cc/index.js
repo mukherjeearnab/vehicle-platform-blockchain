@@ -1,4 +1,4 @@
-const ReadChargeSheet = require("./readChargeSheet");
+const GetProfile = require("./getProfile");
 const AddChargeSheet = require("./addChargeSheet");
 const AddAccusedPerson = require("./addAccusedPerson");
 const AddBriefReport = require("./addBriefReport");
@@ -9,7 +9,7 @@ const AddInvestigationID = require("./addInvestigationID");
 const AddSectionOfLaw = require("./addSectionOfLaw");
 
 const payload = {
-    ReadChargeSheet,
+    GetProfile,
     AddChargeSheet,
     AddAccusedPerson,
     AddBriefReport,
