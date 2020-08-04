@@ -1,23 +1,13 @@
 const GetProfile = require("./getProfile");
-const AddChargeSheet = require("./addChargeSheet");
-const AddAccusedPerson = require("./addAccusedPerson");
-const AddBriefReport = require("./addBriefReport");
-const AddChargedPerson = require("./addChargedPerson");
-const AddFIRID = require("./addFIRID");
-const AddInvestigatingOfficer = require("./addInvestigatingOfficer");
-const AddInvestigationID = require("./addInvestigationID");
-const AddSectionOfLaw = require("./addSectionOfLaw");
+const RegisterCitizen = require("./registerCitizen");
+const AddVehicle = require("./addVehicle");
+const AddLicense = require("./addLicense");
 
 const payload = {
     GetProfile,
-    AddChargeSheet,
-    AddAccusedPerson,
-    AddBriefReport,
-    AddChargedPerson,
-    AddFIRID,
-    AddInvestigatingOfficer,
-    AddInvestigationID,
-    AddSectionOfLaw,
+    RegisterCitizen,
+    AddVehicle,
+    AddLicense,
 };
 
 module.exports = payload;

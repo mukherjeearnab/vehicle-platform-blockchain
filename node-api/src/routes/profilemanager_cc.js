@@ -18,64 +18,50 @@ router.get("/api/main/profile/get/:id", JWTmiddleware, async (req, res) => {
     }
 });
 
-router.post("/api/main/judgement/add", JWTmiddleware, async (req, res) => {
+router.post("/api/main/profile/regCi", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        judgementData = JSON.parse(req.body.payload);
-        judgementData.ID = md5(JSON.stringify(judgementData) + new Date().toString());
-        await ProfileManager.AddProfileManager(req.user, judgementData);
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterCitizen(req.user, profileData);
         res.status(200).send({
-            message: "ProfileManager has been successfully added!",
-            id: judgementData.ID,
+            message: "Citizen Profile has been successfully added!",
+            id: profileData.UID,
         });
     } catch (error) {
         console.log(error);
-        res.status(500).send({ message: "Error! ProfileManager NOT Added!" });
+        res.status(500).send({ message: "Error! Citizen Profile NOT Added!" });
     }
 });
 
-router.post("/api/main/judgement/addevidence/:id", JWTmiddleware, async (req, res) => {
+router.post("/api/main/profile/addVeh", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
         const ID = req.params.id;
-        judgementData = JSON.parse(req.body.payload);
-        judgementData.ID = ID;
-        await ProfileManager.AddEvidence(req.user, judgementData);
-        res.status(200).send({ message: "Evidence has been Successfully Added to the ProfileManager Report!" });
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.AddVehicle(req.user, profileData);
+        res.status(200).send({ message: `Vehicle has been Successfully Added to the Profile ${profileData.UID}.` });
     } catch (error) {
         console.log(error);
-        res.status(404).send({ message: "ProfileManager NOT found!" });
+        res.status(500).send({ message: `Vehicle NOT Added to the Profile ${profileData.UID}.` });
     }
 });
 
-router.post("/api/main/judgement/addsentence/:id", JWTmiddleware, async (req, res) => {
+router.post("/api/main/profile/addLic", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
         const ID = req.params.id;
-        judgementData = JSON.parse(req.body.payload);
-        judgementData.ID = ID;
-        await ProfileManager.AddSentence(req.user, judgementData);
-        res.status(200).send({ message: "Sentence has been Successfully Added to the ProfileManager Report!" });
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.AddLicense(req.user, profileData);
+        res.status(200).send({ message: `License has been Successfully Added to the Profile ${profileData.UID}.` });
     } catch (error) {
         console.log(error);
-        res.status(404).send({ message: "ProfileManager NOT found!" });
+        res.status(500).send({ message: `License NOT Added to the Profile ${profileData.UID}.` });
     }
 });
 
-router.post("/api/main/judgement/setcomplete/:id", JWTmiddleware, async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-
-    try {
-        const ID = req.params.id;
-        await ProfileManager.SetComplete(req.user, ID);
-        res.status(200).send({ message: "ProfileManager has been Successfully Set to Complete!" });
-    } catch (error) {
-        console.log(error);
-        res.status(404).send({ message: "ProfileManager NOT found!" });
-    }
-});
+//TODO: Add remaining Registering Routes
 
 module.exports = router;
