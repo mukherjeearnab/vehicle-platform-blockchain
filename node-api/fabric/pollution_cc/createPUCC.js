@@ -19,10 +19,10 @@ AddEvidence = async (user, payload) => {
     const network = await gateway.getNetwork("mainchannel");
 
     // Get the contract from the network.
-    const contract = network.getContract("judgement_cc");
+    const contract = network.getContract("pollution_cc");
 
     // Evaluate the specified transaction.
-    await contract.submitTransaction("addEvidence", payload.ID, payload.Evidence);
+    await contract.submitTransaction("createPUCC", payload.ID, payload.DateTime, payload.VehicleRegNo, payload.Content);
 };
 
 module.exports = AddEvidence;

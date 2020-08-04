@@ -1,14 +1,8 @@
-const ReadJudgement = require("./readJudgement");
-const AddJudgement = require("./addJudgement");
-const AddEvidence = require("./addEvidence");
-const AddSentence = require("./addSentence");
-const SetComplete = require("./setComplete");
+const GetPUCC = require("./getPUCC");
+const CreatePUCC = require("./createPUCC");
 const payload = {
-    ReadJudgement,
-    AddJudgement,
-    AddEvidence,
-    AddSentence,
-    SetComplete,
+    GetPUCC,
+    CreatePUCC,
 };
 
 module.exports = payload;

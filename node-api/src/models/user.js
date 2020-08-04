@@ -4,6 +4,6 @@ require("../db/mongoose");
 
 const userInfo = new mongoose.Schema(userJSON);
 
-const user = mongoose.model("userInfo", userInfo, "userinfo");
+const user = mongoose.model("userInfo_vehiclePlatform", userInfo, "userinfo_vehicleplatform");
 
 module.exports = user;
