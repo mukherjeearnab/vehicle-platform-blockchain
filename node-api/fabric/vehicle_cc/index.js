@@ -1,10 +1,10 @@
-const ReadFIR = require("./readFIR");
-const AddFIR = require("./addFIR");
-const QueryFIR = require("./queryFIR");
+const GetVehicleProfile = require("./getVehicleProfile");
+const CreateVehicleProfile = require("./createVehicleProfile");
+const TransferOwnership = require("./transferOwnership");
 const payload = {
-    ReadFIR,
-    AddFIR,
-    QueryFIR,
+    GetVehicleProfile,
+    CreateVehicleProfile,
+    TransferOwnership,
 };
 
 module.exports = payload;
