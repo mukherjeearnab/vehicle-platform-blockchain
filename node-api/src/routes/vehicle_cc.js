@@ -41,7 +41,7 @@ router.post("/api/main/vehicle/transfer/:id", JWTmiddleware, async (req, res) =>
     try {
         VehicleData = JSON.parse(req.body.payload);
         VehicleData.RegNo = ID;
-        VehicleData.Date = new Date().getTime().toString();
+        VehicleData.Date = Math.floor(new Date() / 1000).toString();
         await Vehicle.TransferOwnership(req.user, VehicleData);
         res.status(200).send({
             message: "Vehicle Ownership transfer successful!",

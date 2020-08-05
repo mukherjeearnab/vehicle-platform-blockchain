@@ -23,6 +23,7 @@ router.post("/api/main/rto/newDLA", JWTmiddleware, async (req, res) => {
 
     try {
         RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData.DateTime = Math.floor(new Date() / 1000).toString();
         RTOServicesData.ApplicationID = md5(JSON.stringify(RTOServicesData) + new Date().toString());
         await RTOServices.NewDLApplication(req.user, RTOServicesData);
         res.status(200).send({
@@ -40,6 +41,7 @@ router.post("/api/main/rto/newVRA", JWTmiddleware, async (req, res) => {
 
     try {
         RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData.DateTime = Math.floor(new Date() / 1000).toString();
         RTOServicesData.ApplicationID = md5(JSON.stringify(RTOServicesData) + new Date().toString());
         await RTOServices.NewVRApplication(req.user, RTOServicesData);
         res.status(200).send({
@@ -59,6 +61,7 @@ router.post("/api/main/rto/updateDLA/:id", JWTmiddleware, async (req, res) => {
     try {
         RTOServicesData = JSON.parse(req.body.payload);
         RTOServicesData.ApplicationID = ID;
+        RTOServicesData.Date = Math.floor(new Date() / 1000).toString();
         await RTOServices.UpdateDLApplication(req.user, RTOServicesData);
         res.status(200).send({
             message: "DL Application has been successfully Updated!",
@@ -77,6 +80,7 @@ router.post("/api/main/rto/updateVRA/:id", JWTmiddleware, async (req, res) => {
     try {
         RTOServicesData = JSON.parse(req.body.payload);
         RTOServicesData.ApplicationID = ID;
+        RTOServicesData.Date = Math.floor(new Date() / 1000).toString();
         await RTOServices.UpdateVRApplication(req.user, RTOServicesData);
         res.status(200).send({
             message: "VR Application has been successfully Updated!",
