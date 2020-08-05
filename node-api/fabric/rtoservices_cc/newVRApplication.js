@@ -1,7 +1,7 @@
 const { FileSystemWallet, Gateway } = require("fabric-network");
 const path = require("path");
 
-ReadCitizen = async (user, ID) => {
+NewVRApplication = async (user, payload) => {
     const ccp = require(`../ccp/connection-${user.group}.json`);
     const walletPath = path.join(process.cwd(), `wallet_${user.group}`);
     const wallet = new FileSystemWallet(walletPath);
@@ -19,12 +19,22 @@ ReadCitizen = async (user, ID) => {
     const network = await gateway.getNetwork("mainchannel");
 
     // Get the contract from the network.
-    const contract = network.getContract("citizenprofile_cc");
+    const contract = network.getContract("rtoservices_cc");
 
     // Evaluate the specified transaction.
-    const result = await contract.evaluateTransaction("readCitizenProfile", ID);
-
-    return JSON.parse(result.toString());
+    await contract.submitTransaction(
+        "newVRApplication",
+        payload.ApplicationID,
+        payload.DateTime,
+        payload.Make,
+        payload.Model,
+        payload.ModelVariant,
+        payload.ModelYear,
+        payload.Color,
+        payload.EngineNo,
+        payload.ChassisNo,
+        payload.Owner
+    );
 };
 
-module.exports = ReadCitizen;
+module.exports = NewVRApplication;

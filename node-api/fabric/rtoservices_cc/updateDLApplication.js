@@ -1,7 +1,7 @@
 const { FileSystemWallet, Gateway } = require("fabric-network");
 const path = require("path");
 
-QueryCitizen = async (user, payload) => {
+UpdateDLApplication = async (user, payload) => {
     const ccp = require(`../ccp/connection-${user.group}.json`);
     const walletPath = path.join(process.cwd(), `wallet_${user.group}`);
     const wallet = new FileSystemWallet(walletPath);
@@ -19,17 +19,10 @@ QueryCitizen = async (user, payload) => {
     const network = await gateway.getNetwork("mainchannel");
 
     // Get the contract from the network.
-    const contract = network.getContract("citizenprofile_cc");
+    const contract = network.getContract("rtoservices_cc");
 
     // Evaluate the specified transaction.
-    const result = await contract.evaluateTransaction(
-        "queryCitizenProfile",
-        payload.Name,
-        payload.Phone,
-        payload.Gender
-    );
-
-    return JSON.parse(result.toString());
+    await contract.submitTransaction("updateDLApplication", payload.ApplicationID, payload.Date, payload.Content);
 };
 
-module.exports = QueryCitizen;
+module.exports = UpdateDLApplication;
