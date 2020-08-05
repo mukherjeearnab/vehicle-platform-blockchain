@@ -64,4 +64,132 @@ router.post("/api/main/profile/addLic", JWTmiddleware, async (req, res) => {
 
 //TODO: Add remaining Registering Routes
 
+router.post("/api/main/profile/regRto", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterRto(req.user, profileData);
+        res.status(200).send({
+            message: "RTO Profile has been successfully added!",
+            id: profileData.RtoID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! RTO Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regRtoE", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterRtoE(req.user, profileData);
+        res.status(200).send({
+            message: "RTO Employee Profile has been successfully added!",
+            id: profileData.EmployeeID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! RTO Employee Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regIns", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterInsuranceCompany(req.user, profileData);
+        res.status(200).send({
+            message: "IC Profile has been successfully added!",
+            id: profileData.CompanyID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! IC Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regInsE", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterInsuranceE(req.user, profileData);
+        res.status(200).send({
+            message: "Insurance Employee Profile has been successfully added!",
+            id: profileData.EmployeeID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! Insurance Employee Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regPol", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterPollutionCompany(req.user, profileData);
+        res.status(200).send({
+            message: "PC Profile has been successfully added!",
+            id: profileData.CompanyID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! PC Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regPolE", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterPollutionE(req.user, profileData);
+        res.status(200).send({
+            message: "Pollution Employee Profile has been successfully added!",
+            id: profileData.EmployeeID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! Pollution Employee Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regPlc", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterPoliceStation(req.user, profileData);
+        res.status(200).send({
+            message: "Police Station Profile has been successfully added!",
+            id: profileData.StationID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! Police Station Profile NOT Added!" });
+    }
+});
+
+router.post("/api/main/profile/regPlcO", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        profileData = JSON.parse(req.body.payload);
+        await ProfileManager.RegisterPoliceOfficer(req.user, profileData);
+        res.status(200).send({
+            message: "Police Officer Profile has been successfully added!",
+            id: profileData.OfficerID,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! Police Officer Profile NOT Added!" });
+    }
+});
+
 module.exports = router;

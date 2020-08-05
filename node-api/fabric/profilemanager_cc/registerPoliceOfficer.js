@@ -1,7 +1,7 @@
 const { FileSystemWallet, Gateway } = require("fabric-network");
 const path = require("path");
 
-AddEvidence = async (user, payload) => {
+RegisterPoliceOfficer = async (user, payload) => {
     const ccp = require(`../ccp/connection-${user.group}.json`);
     const walletPath = path.join(process.cwd(), `wallet_${user.group}`);
     const wallet = new FileSystemWallet(walletPath);
@@ -19,10 +19,10 @@ AddEvidence = async (user, payload) => {
     const network = await gateway.getNetwork("mainchannel");
 
     // Get the contract from the network.
-    const contract = network.getContract("chargesheet_cc");
+    const contract = network.getContract("profilemanager_cc");
 
     // Evaluate the specified transaction.
-    await contract.submitTransaction("addInvestigationID", payload.ID, payload.InvestigationID);
+    await contract.submitTransaction("registerPoliceOfficer", payload.OfficerID, payload.UID, payload.StationID);
 };
 
-module.exports = AddEvidence;
+module.exports = RegisterPoliceOfficer;
