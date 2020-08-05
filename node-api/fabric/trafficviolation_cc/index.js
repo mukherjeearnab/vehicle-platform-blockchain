@@ -1,8 +1,8 @@
-const ReadEvidence = require("./readEvidence");
-const AddEvidence = require("./addEvidence");
+const GetTV = require("./getTV");
+const FileTV = require("./fileTV");
 const payload = {
-    ReadEvidence,
-    AddEvidence,
+    GetTV,
+    FileTV,
 };
 
 module.exports = payload;
