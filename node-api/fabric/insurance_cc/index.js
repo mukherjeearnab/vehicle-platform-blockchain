@@ -1,15 +1,15 @@
-const AddInvestigation = require("./addInvestigation");
-const AddReport = require("./addReport");
-const AddArrest = require("./addArrest");
-const ReadInvestigation = require("./readInvestigation");
-const UpdateInvestigation = require("./updateInvestigation");
+const AddInsurancePolicy = require("./addInsurancePolicy");
+const ClaimInsurancePolicy = require("./claimInsurancePolicy");
+const ReadInsurancePolicyClaim = require("./readInsurancePolicyClaim");
+const UpdateInsuranceClaim = require("./updateInsuranceClaim");
+const ApproveInsuranceClaim = require("./approveInsuranceClaim");
 
 const payload = {
-    AddInvestigation,
-    AddReport,
-    AddArrest,
-    ReadInvestigation,
-    UpdateInvestigation,
+    AddInsurancePolicy,
+    ClaimInsurancePolicy,
+    ReadInsurancePolicyClaim,
+    UpdateInsuranceClaim,
+    ApproveInsuranceClaim,
 };
 
 module.exports = payload;
