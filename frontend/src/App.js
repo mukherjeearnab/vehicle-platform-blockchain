@@ -11,6 +11,10 @@ import HomeIn from "./pages/HomeIn";
 import HomePu from "./pages/HomePu";
 import HomeRt from "./pages/HomeRt";
 
+import newDLA from "./pages/rto/newDLA";
+import newVRA from "./pages/rto/newVRA";
+import viewVRAs from "./pages/rto/viewVRAs";
+
 function App() {
     return (
         <div className="App">
@@ -25,6 +29,10 @@ function App() {
                 <Route exact path="/HomeIn" component={HomeIn}></Route>
                 <Route exact path="/HomePu" component={HomePu}></Route>
                 <Route exact path="/HomeRt" component={HomeRt}></Route>
+
+                <Route exact path="/rto/newDLA" component={newDLA}></Route>
+                <Route exact path="/rto/newVRA" component={newVRA}></Route>
+                <Route exact path="/rto/viewVRAs" component={viewVRAs}></Route>
             </ThemeProvider>
         </div>
     );
