@@ -104,23 +104,6 @@ class App extends Component {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={3} style={{ display: "none" }}>
-                        <Grid item xs>
-                            <Paper className={classes.paper3}>
-                                <img
-                                    alt="profile-pic"
-                                    width="200"
-                                    src={"https://ipfs.infura.io/ipfs/" + this.state.profile.Photo}
-                                ></img>
-                                <h3>Name: {this.state.profile.Name}</h3>
-                                <h3>Blood Group: {this.state.profile.BloodGroup}</h3>
-                                <h3>Address: {this.state.profile.Address}</h3>
-                                <h3>Email: {this.state.profile.Email}</h3>
-                                <h3>Eye Color: {this.state.profile.EyeColor}</h3>
-                                <h3>Occupation: {this.state.profile.Occupation}</h3>
-                            </Paper>
-                        </Grid>
-                    </Grid>
                 </Container>
             </div>
         );

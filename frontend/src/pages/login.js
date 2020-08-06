@@ -21,10 +21,10 @@ class App extends Component {
             let res = await response.json();
             if (res.status === 1) {
                 if (res.group === "citizen") this.setState({ redirect: <Redirect to="/HomeCi" /> });
-                else if (res.group === "police") this.setState({ redirect: <Redirect to="/HomePo" /> });
-                else if (res.group === "forensics") this.setState({ redirect: <Redirect to="/HomeFo" /> });
-                else if (res.group === "court") this.setState({ redirect: <Redirect to="/HomeCo" /> });
-                else if (res.group === "identityprovider") this.setState({ redirect: <Redirect to="/HomeId" /> });
+                else if (res.group === "rto") this.setState({ redirect: <Redirect to="/HomeRt" /> });
+                else if (res.group === "insurance") this.setState({ redirect: <Redirect to="/HomeIn" /> });
+                else if (res.group === "pollution") this.setState({ redirect: <Redirect to="/HomePu" /> });
+                else if (res.group === "police") this.setState({ redirect: <Redirect to="/HomePu" /> });
                 else;
             }
             this.setState({ redirect: <Redirect to="/" /> });
@@ -50,10 +50,10 @@ class App extends Component {
             localStorage.setItem("session", res.jwtoken);
             localStorage.setItem("user", this.state.username);
             if (this.state.group === "citizen") this.setState({ redirect: <Redirect to="/HomeCi" /> });
-            else if (this.state.group === "police") this.setState({ redirect: <Redirect to="/HomePo" /> });
-            else if (this.state.group === "forensics") this.setState({ redirect: <Redirect to="/HomeFo" /> });
-            else if (this.state.group === "court") this.setState({ redirect: <Redirect to="/HomeCo" /> });
-            else if (this.state.group === "identityprovider") this.setState({ redirect: <Redirect to="/HomeId" /> });
+            else if (res.group === "rto") this.setState({ redirect: <Redirect to="/HomeRt" /> });
+            else if (res.group === "insurance") this.setState({ redirect: <Redirect to="/HomeIn" /> });
+            else if (res.group === "pollution") this.setState({ redirect: <Redirect to="/HomePu" /> });
+            else if (res.group === "police") this.setState({ redirect: <Redirect to="/HomePu" /> });
             else;
         } else
             this.setState({
@@ -75,12 +75,12 @@ class App extends Component {
                         }}
                     >
                         <MenuItem value={"citizen"}>Citizen</MenuItem>
+                        <MenuItem value={"rto"}>RTO</MenuItem>
+                        <MenuItem value={"insurane"}>Insurance</MenuItem>
+                        <MenuItem value={"pollution"}>Pollution</MenuItem>
                         <MenuItem value={"police"}>Police</MenuItem>
-                        <MenuItem value={"forensics"}>Forensics</MenuItem>
-                        <MenuItem value={"court"}>Court</MenuItem>
-                        <MenuItem value={"identityprovider"}>Identity Provider</MenuItem>
                     </Select>
-                    <FormHelperText>Please Select the Domain You Belong</FormHelperText>
+                    <FormHelperText>Please Select The Domain You Belong To</FormHelperText>
                 </FormControl>
                 <br />
                 <br />

@@ -16,7 +16,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h2>Forensics Dashboard</h2>
+                <h2>Pollution Testing Center Dashboard</h2>
                 <h2>
                     {this.state.redirect}Welcome, {localStorage.getItem("user")}!
                 </h2>
