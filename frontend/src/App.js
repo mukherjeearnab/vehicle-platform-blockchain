@@ -14,6 +14,7 @@ import HomeRt from "./pages/HomeRt";
 import newDLA from "./pages/rto/newDLA";
 import newVRA from "./pages/rto/newVRA";
 import viewVRAs from "./pages/rto/viewVRAs";
+import viewDLAs from "./pages/rto/viewDLAs";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                 <Route exact path="/rto/newDLA" component={newDLA}></Route>
                 <Route exact path="/rto/newVRA" component={newVRA}></Route>
                 <Route exact path="/rto/viewVRAs" component={viewVRAs}></Route>
+                <Route exact path="/rto/viewDLAs" component={viewDLAs}></Route>
             </ThemeProvider>
         </div>
     );
