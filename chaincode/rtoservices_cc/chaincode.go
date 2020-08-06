@@ -273,7 +273,6 @@ func (cc *Chaincode) queryDLVRApplication(stub shim.ChaincodeStubInterface, para
 		search0 = fmt.Sprintf(search0, fmt.Sprintf(regex, params[1]))
 		search = search0
 	} else if params[0] == "VR" {
-		search1 = fmt.Sprintf(search, ".*")
 		search = search1
 	} else {
 		return shim.Error("Invalid Query Parameters!")
