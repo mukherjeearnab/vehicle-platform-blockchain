@@ -23,7 +23,7 @@ router.post("/api/auth/login", (req, res) => {
                 };
                 let token = jwt.sign(userdata, JWTConfig.secretKey, {
                     algorithm: JWTConfig.algorithm,
-                    expiresIn: "1m",
+                    expiresIn: "50m",
                 });
                 res.status(200).send({
                     message: "Login Successful!",

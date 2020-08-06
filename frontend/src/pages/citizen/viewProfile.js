@@ -1,100 +1,121 @@
 import React, { Component } from "react";
-import { Table, TableBody, TableContainer, TableHead, TableCell, TableRow, CircularProgress } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import { Link, Redirect } from "react-router-dom";
+import { Button, TextField } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { Table, TableBody, TableContainer, TableHead, TableCell, TableRow, Paper } from "@material-ui/core";
 
 class App extends Component {
     state = {
-        firs: [],
-        message: "",
+        redirect: "",
+        ID: "",
+        profile: {},
+        output: null,
     };
 
-    async componentDidMount() {
-        this.setState({
-            message: (
-                <span>
-                    <CircularProgress />
-                    <br></br> Loading.....
-                </span>
-            ),
-        });
-
-        if (!localStorage.getItem("session")) this.setState({ redirect: <Redirect to="/" /> });
-        if (localStorage.getItem("session")) {
-            const requestOptions = {
-                method: "GET",
-                headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
-            };
-            let response = await fetch("http://192.168.1.30:3000/api/auth/verify/", requestOptions);
-            let res = await response.json();
-            if (res.status === 0) this.setState({ redirect: <Redirect to="/" /> });
+    onComponentDidMount() {
+        const { id } = this.props.match.params;
+        if (id !== "0") {
+            this.setState({
+                ID: id,
+                message: (
+                    <p>
+                        Press <b>LOAD Profile</b> to View Profile.
+                    </p>
+                ),
+            });
         }
-        console.log(localStorage.getItem("session"));
+    }
+
+    loadProfile = async () => {
         const requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
-            body: JSON.stringify({
-                payload: JSON.stringify({
-                    CitizenID: localStorage.getItem("user"),
-                    PoliceStation: "",
-                }),
-            }),
         };
-        console.log(requestOptions);
-        let response = await fetch("http://192.168.1.30:3000/api/main/fir/query/", requestOptions);
+        let response = await fetch("http://192.168.1.30:3000/api/main/citizen/get/" + this.state.ID, requestOptions);
         let res = await response.json();
         console.log(res);
-        this.setState({ firs: res, message: "" });
-    }
+        this.setState({ profile: res });
+
+        let table = (
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="left">
+                                <b>Serial</b>
+                            </TableCell>
+                            <TableCell align="left">
+                                <b>Judgement ID</b>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.state.profile.VerdictRecord
+                            ? this.state.profile.VerdictRecord.map((content, index) => {
+                                  return (
+                                      <TableRow key={index}>
+                                          <TableCell align="left">{(index + 1).toString()}</TableCell>
+                                          <TableCell align="left">
+                                              <Link target="blank" to={"/viewJudgement/" + content}>
+                                                  {content}
+                                              </Link>
+                                          </TableCell>
+                                      </TableRow>
+                                  );
+                              })
+                            : ""}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+
+        let output = (
+            <div>
+                <img
+                    alt="profile-pic"
+                    width="200"
+                    src={"https://ipfs.infura.io/ipfs/" + this.state.profile.Photo}
+                ></img>
+                <h3>Citizen Name: {this.state.profile.Name}</h3>
+                <h3>Father's Name: {this.state.profile.FathersName}</h3>
+                <h3>Mother's Name: {this.state.profile.MothersName}</h3>
+                <h3>Religion: {this.state.profile.Religion}</h3>
+                <h3>Phone: {this.state.profile.Phone}</h3>
+                <h3>DOB: {new Date(this.state.profile.DOB).toString()}</h3>
+                <h3>Gender: {this.state.profile.Gender}</h3>
+                <h3>Blood Group: {this.state.profile.BloodGroup}</h3>
+                <h3>Address: {this.state.profile.Address}</h3>
+                <h3>Email: {this.state.profile.Email}</h3>
+                <h3>Eye Color: {this.state.profile.EyeColor}</h3>
+                <h3>Occupation: {this.state.profile.Occupation}</h3>
+                <h3>Verdict Record</h3>
+                <div>{table}</div>
+            </div>
+        );
+        this.setState({ output });
+    };
 
     render() {
         return (
             <div>
-                <h1>Past FIRs</h1>
-                <div>
-                    <TableContainer component={Paper}>
-                        <Table aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="left">
-                                        <b>FIR ID</b>
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        <b>Police Station</b>
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        <b>Place Of Occurence</b>
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        <b>Date & Time</b>
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {this.state.firs
-                                    .slice(0)
-                                    .reverse()
-                                    .map((content, index) => {
-                                        content = content.Value;
-                                        let date = new Date(content.DateHour).toString();
-
-                                        return (
-                                            <TableRow key={content.ID}>
-                                                <TableCell align="left">
-                                                    <Link to={`/firViewer/${content.ID}`}>{content.ID}</Link>
-                                                </TableCell>
-                                                <TableCell align="left">{content.PoliceStation}</TableCell>
-                                                <TableCell align="left">{content.PlaceOfOccurence}</TableCell>
-                                                <TableCell align="left">{date}</TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
+                <h2>View Citizen Profile</h2>
+                <TextField
+                    className="inputs"
+                    label="Citizen ID"
+                    variant="outlined"
+                    value={this.state.ID}
+                    onChange={(event) => {
+                        this.setState({
+                            ID: event.target.value,
+                        });
+                    }}
+                />
                 <br />
-                {this.state.message}
+                <br />
+                <Button m={1} onClick={this.loadProfile} variant="contained" color="primary">
+                    Load Citizen
+                </Button>
+                <hr />
+                {this.state.output}
             </div>
         );
     }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"crypto/x509"
 	"encoding/json"
 	"fmt"
@@ -86,6 +87,8 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 		return cc.newVRApplication(stub, params)
 	} else if fcn == "getDLVRApplication" {
 		return cc.getDLVRApplication(stub, params)
+	} else if fcn == "queryDLVRApplication" {
+		return cc.queryDLVRApplication(stub, params)
 	} else if fcn == "updateDLApplication" {
 		return cc.updateDLApplication(stub, params)
 	} else if fcn == "updateVRApplication" {
@@ -94,7 +97,7 @@ func (cc *Chaincode) Invoke(stub shim.ChaincodeStubInterface) sc.Response {
 		return cc.createDL(stub, params)
 	} else if fcn == "getDL" {
 		return cc.getDL(stub, params)
-	} else {
+	} else { //queryDLVRApplication
 		fmt.Println("Invoke() did not find func: " + fcn)
 		return shim.Error("Received unknown function invocation!")
 	}
@@ -252,6 +255,36 @@ func (cc *Chaincode) getDLVRApplication(stub shim.ChaincodeStubInterface, params
 
 	// Returned on successful execution of the function
 	return shim.Success(applicationAsBytes)
+}
+
+// Function to query FIRs
+func (cc *Chaincode) queryDLVRApplication(stub shim.ChaincodeStubInterface, params []string) sc.Response {
+	// Check if sufficient Params passed
+	if len(params) != 2 {
+		return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	regex := "(?i:.*%s.*)"
+	search0 := "{\"selector\": {\"$and\": [{\"Type\": \"DRVLCN_RA\" },{\"RtoID\": { \"$regex\": \"%s\" }}]}}"
+	search1 := "{\"selector\": {\"$and\": [{\"Type\": \"VEHCL_RA\" }]}}"
+	search := ""
+
+	if params[0] == "DL" {
+		search0 = fmt.Sprintf(search0, fmt.Sprintf(regex, params[1]))
+		search = search0
+	} else if params[0] == "VR" {
+		search1 = fmt.Sprintf(search, ".*")
+		search = search1
+	} else {
+		return shim.Error("Invalid Query Parameters!")
+	}
+
+	queryResults, err := getQueryResultForQueryString(stub, search)
+	if err != nil {
+
+	}
+
+	return shim.Success(queryResults)
 }
 
 // Function to Update DL Application Status
@@ -514,4 +547,53 @@ func authenticateCitizen(mspID string, certCN string) bool {
 // Authenticate => RTO
 func authenticateRTO(mspID string, certCN string) bool {
 	return (mspID == "RTOMSP") && (certCN == "ca.rto.vehicle.com")
+}
+
+// Query Helpers
+// +++++++++++++
+
+// Construct Query Response from Iterator
+func constructQueryResponseFromIterator(resultsIterator shim.StateQueryIteratorInterface) (*bytes.Buffer, error) {
+	// buffer is a JSON array containing QueryResults
+	var buffer bytes.Buffer
+	buffer.WriteString("[")
+
+	bArrayMemberAlreadyWritten := false
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+		if err != nil {
+			return nil, err
+		}
+		// Add a comma before array members, suppress it for the first array member
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"Key\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(queryResponse.Key)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Value\":")
+		// Record is a JSON object, so we write as-is
+		buffer.WriteString(string(queryResponse.Value))
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
+	return &buffer, nil
+}
+
+// Get Query Result for Query String
+func getQueryResultForQueryString(stub shim.ChaincodeStubInterface, queryString string) ([]byte, error) {
+	resultsIterator, err := stub.GetQueryResult(queryString)
+	if err != nil {
+		return nil, err
+	}
+	defer resultsIterator.Close()
+
+	buffer, err := constructQueryResponseFromIterator(resultsIterator)
+	if err != nil {
+		return nil, err
+	}
+	return buffer.Bytes(), nil
 }

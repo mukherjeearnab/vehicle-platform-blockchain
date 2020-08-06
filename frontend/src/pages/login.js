@@ -49,10 +49,10 @@ class App extends Component {
             localStorage.setItem("session", res.jwtoken);
             localStorage.setItem("user", this.state.username);
             if (this.state.group === "citizen") this.setState({ redirect: <Redirect to="/HomeCi" /> });
-            else if (res.group === "rto") this.setState({ redirect: <Redirect to="/HomeRt" /> });
-            else if (res.group === "insurance") this.setState({ redirect: <Redirect to="/HomeIn" /> });
-            else if (res.group === "pollution") this.setState({ redirect: <Redirect to="/HomePu" /> });
-            else if (res.group === "police") this.setState({ redirect: <Redirect to="/HomePu" /> });
+            else if (this.state.group === "rto") this.setState({ redirect: <Redirect to="/HomeRt" /> });
+            else if (this.state.group === "insurance") this.setState({ redirect: <Redirect to="/HomeIn" /> });
+            else if (this.state.group === "pollution") this.setState({ redirect: <Redirect to="/HomePu" /> });
+            else if (this.state.group === "police") this.setState({ redirect: <Redirect to="/HomePo" /> });
             else;
         } else
             this.setState({

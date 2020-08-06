@@ -80,7 +80,7 @@ class App extends Component {
                             </Link>
                         </Grid>
                         <Grid item xs>
-                            <Link to={"/rto/newDLA" + this.state.profile.ID} className={classes.link}>
+                            <Link to="/rto/newDLA" className={classes.link}>
                                 <Paper className={classes.paper}>New Driving License Application</Paper>
                             </Link>
                         </Grid>
