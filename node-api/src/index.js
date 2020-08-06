@@ -12,11 +12,11 @@ app.use(function (req, res, next) {
 });
 
 app.use(require("./routes/auth"));
-app.use(require("./routes/chargesheet_cc"));
-app.use(require("./routes/citizenprofile_cc"));
-app.use(require("./routes/evidence_cc"));
-app.use(require("./routes/fir_cc"));
-app.use(require("./routes/investigation_cc"));
-app.use(require("./routes/judgement_cc"));
+app.use(require("./routes/rtoservices_cc"));
+app.use(require("./routes/insurance_cc"));
+app.use(require("./routes/pollution_cc"));
+app.use(require("./routes/vehicle_cc"));
+app.use(require("./routes/trafficviolation_cc"));
+app.use(require("./routes/profilemanager_cc"));
 
 app.listen(3000, console.log);

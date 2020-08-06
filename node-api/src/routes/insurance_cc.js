@@ -1,7 +1,7 @@
 const ipfsAPI = require("ipfs-api");
 const express = require("express");
 const JWTmiddleware = require("../helpers/jwtVerifyMiddleware");
-const Insurance = require("../../fabric/insuranceprofile_cc");
+const Insurance = require("../../fabric/insurance_cc");
 
 const router = new express.Router();
 const ipfs = ipfsAPI("ipfs.infura.io", "5001", { protocol: "https" });
