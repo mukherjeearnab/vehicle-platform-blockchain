@@ -49,7 +49,7 @@ class App extends Component {
             headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
         };
         let response = await fetch(
-            "http://192.168.1.30:3000/api/main/citizen/get/" + localStorage.getItem("user"),
+            "http://192.168.1.30:3000/api/main/profile/get/" + localStorage.getItem("user"),
             requestOptions
         );
         let res = await response.json();
@@ -75,25 +75,25 @@ class App extends Component {
                 <Container maxWidth="sm" spacing={10}>
                     <Grid container spacing={3}>
                         <Grid item xs>
-                            <Link to={"/viewProfile/" + this.state.profile.ID} className={classes.link}>
+                            <Link to={"/citizen/viewProfile/" + this.state.profile.UID} className={classes.link}>
                                 <Paper className={classes.paper}>View Profile</Paper>
                             </Link>
                         </Grid>
                         <Grid item xs>
-                            <Link to={"/viewFIRs/" + this.state.profile.ID} className={classes.link}>
-                                <Paper className={classes.paper}>View FIRs</Paper>
+                            <Link to={"/rto/newDLA" + this.state.profile.ID} className={classes.link}>
+                                <Paper className={classes.paper}>New Driving License Application</Paper>
                             </Link>
                         </Grid>
                     </Grid>
                     <Grid container spacing={3}>
                         <Grid item xs>
-                            <Link to="/newFIR/" className={classes.link}>
-                                <Paper className={classes.paper2}>File New FIR</Paper>
+                            <Link to="/rto/newVRA" className={classes.link}>
+                                <Paper className={classes.paper2}>New Vehicle Reg. Application</Paper>
                             </Link>
                         </Grid>
                         <Grid item xs>
-                            <Link to="/submitEvidence/" className={classes.link}>
-                                <Paper className={classes.paper2}>Add New Evidence</Paper>
+                            <Link to="/insurance/newClaim" className={classes.link}>
+                                <Paper className={classes.paper2}>Init. New Insurance Claim</Paper>
                             </Link>
                         </Grid>
                     </Grid>
