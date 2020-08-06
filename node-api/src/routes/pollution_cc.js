@@ -22,7 +22,7 @@ router.post("/api/main/pollution/create", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        PUCCData = JSON.parse(req.body.payload);
+        PUCCData = req.body.payload;
         PUCCData.DateTime = Math.floor(new Date() / 1000).toString();
         PUCCData.ID = md5(JSON.stringify(PUCCData) + new Date().toString());
         await Pollution.CreatePUCC(req.user, PUCCData);

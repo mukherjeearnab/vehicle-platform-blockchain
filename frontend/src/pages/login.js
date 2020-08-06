@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Button, TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@material-ui/core";
+import { Button, TextField, FormControl, Select, MenuItem, FormHelperText } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import jwt from "../helpers/JWToken";
 
 class App extends Component {
     state = {

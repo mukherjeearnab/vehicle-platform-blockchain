@@ -39,7 +39,7 @@ router.post("/api/main/trafficviolation/add", upload.single("file"), JWTmiddlewa
             if (err) {
                 console.log(err);
             }
-            trafficviolationData = JSON.parse(req.body.payload);
+            trafficviolationData = req.body.payload;
             trafficviolationData.Evidence = file[0].path;
             trafficviolationData.DateFiling = Math.floor(new Date() / 1000).toString();
             trafficviolationData.TVID = md5(JSON.stringify(trafficviolationData) + new Date().toString());

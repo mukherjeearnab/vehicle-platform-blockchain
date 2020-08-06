@@ -22,7 +22,7 @@ router.post("/api/main/vehicle/create", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        VehicleData = JSON.parse(req.body.payload);
+        VehicleData = req.body.payload;
         await Vehicle.CreateVehicleProfile(req.user, VehicleData);
         res.status(200).send({
             message: "Vehicle has been successfully Created!",
@@ -39,7 +39,7 @@ router.post("/api/main/vehicle/transfer/:id", JWTmiddleware, async (req, res) =>
 
     const ID = req.params.id;
     try {
-        VehicleData = JSON.parse(req.body.payload);
+        VehicleData = req.body.payload;
         VehicleData.RegNo = ID;
         VehicleData.Date = Math.floor(new Date() / 1000).toString();
         await Vehicle.TransferOwnership(req.user, VehicleData);

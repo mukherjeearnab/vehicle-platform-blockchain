@@ -22,7 +22,7 @@ router.post("/api/main/rto/newDLA", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData = req.body.payload;
         RTOServicesData.DateTime = Math.floor(new Date() / 1000).toString();
         RTOServicesData.ApplicationID = md5(JSON.stringify(RTOServicesData) + new Date().toString());
         await RTOServices.NewDLApplication(req.user, RTOServicesData);
@@ -40,7 +40,7 @@ router.post("/api/main/rto/newVRA", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData = req.body.payload;
         RTOServicesData.DateTime = Math.floor(new Date() / 1000).toString();
         RTOServicesData.ApplicationID = md5(JSON.stringify(RTOServicesData) + new Date().toString());
         await RTOServices.NewVRApplication(req.user, RTOServicesData);
@@ -59,7 +59,7 @@ router.post("/api/main/rto/updateDLA/:id", JWTmiddleware, async (req, res) => {
 
     const ID = req.params.id;
     try {
-        RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData = req.body.payload;
         RTOServicesData.ApplicationID = ID;
         RTOServicesData.Date = Math.floor(new Date() / 1000).toString();
         await RTOServices.UpdateDLApplication(req.user, RTOServicesData);
@@ -78,7 +78,7 @@ router.post("/api/main/rto/updateVRA/:id", JWTmiddleware, async (req, res) => {
 
     const ID = req.params.id;
     try {
-        RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData = req.body.payload;
         RTOServicesData.ApplicationID = ID;
         RTOServicesData.Date = Math.floor(new Date() / 1000).toString();
         await RTOServices.UpdateVRApplication(req.user, RTOServicesData);
@@ -96,7 +96,7 @@ router.post("/api/main/rto/createDL", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        RTOServicesData = JSON.parse(req.body.payload);
+        RTOServicesData = req.body.payload;
         await RTOServices.CreateDL(req.user, RTOServicesData);
         res.status(200).send({
             message: "DL has been successfully Created!",

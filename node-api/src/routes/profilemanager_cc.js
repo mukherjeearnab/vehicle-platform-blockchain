@@ -22,7 +22,7 @@ router.post("/api/main/profile/regCi", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterCitizen(req.user, profileData);
         res.status(200).send({
             message: "Citizen Profile has been successfully added!",
@@ -39,7 +39,7 @@ router.post("/api/main/profile/addVeh", JWTmiddleware, async (req, res) => {
 
     try {
         const ID = req.params.id;
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.AddVehicle(req.user, profileData);
         res.status(200).send({ message: `Vehicle has been Successfully Added to the Profile ${profileData.UID}.` });
     } catch (error) {
@@ -53,7 +53,7 @@ router.post("/api/main/profile/addLic", JWTmiddleware, async (req, res) => {
 
     try {
         const ID = req.params.id;
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.AddLicense(req.user, profileData);
         res.status(200).send({ message: `License has been Successfully Added to the Profile ${profileData.UID}.` });
     } catch (error) {
@@ -68,7 +68,7 @@ router.post("/api/main/profile/regRto", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterRto(req.user, profileData);
         res.status(200).send({
             message: "RTO Profile has been successfully added!",
@@ -84,7 +84,7 @@ router.post("/api/main/profile/regRtoE", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterRtoE(req.user, profileData);
         res.status(200).send({
             message: "RTO Employee Profile has been successfully added!",
@@ -100,7 +100,7 @@ router.post("/api/main/profile/regIns", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterInsuranceCompany(req.user, profileData);
         res.status(200).send({
             message: "IC Profile has been successfully added!",
@@ -116,7 +116,7 @@ router.post("/api/main/profile/regInsE", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterInsuranceE(req.user, profileData);
         res.status(200).send({
             message: "Insurance Employee Profile has been successfully added!",
@@ -132,7 +132,7 @@ router.post("/api/main/profile/regPol", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterPollutionCompany(req.user, profileData);
         res.status(200).send({
             message: "PC Profile has been successfully added!",
@@ -148,7 +148,7 @@ router.post("/api/main/profile/regPolE", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterPollutionE(req.user, profileData);
         res.status(200).send({
             message: "Pollution Employee Profile has been successfully added!",
@@ -164,7 +164,7 @@ router.post("/api/main/profile/regPlc", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterPoliceStation(req.user, profileData);
         res.status(200).send({
             message: "Police Station Profile has been successfully added!",
@@ -180,7 +180,7 @@ router.post("/api/main/profile/regPlcO", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        profileData = JSON.parse(req.body.payload);
+        profileData = req.body.payload;
         await ProfileManager.RegisterPoliceOfficer(req.user, profileData);
         res.status(200).send({
             message: "Police Officer Profile has been successfully added!",

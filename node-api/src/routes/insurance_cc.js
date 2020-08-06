@@ -21,7 +21,7 @@ router.post("/api/main/insurance/policy/add", JWTmiddleware, async (req, res) =>
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        InsuranceData = JSON.parse(req.body.payload);
+        InsuranceData = req.body.payload;
         InsuranceData.Date = Math.floor(new Date() / 1000).toString();
         InsuranceData.InsuranceID = md5(JSON.stringify(InsuranceData) + new Date().toString());
         await Insurance.AddInsurancePolicy(req.user, InsuranceData);
@@ -39,7 +39,7 @@ router.post("/api/main/insurance/claim/add", JWTmiddleware, async (req, res) => 
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     try {
-        InsuranceData = JSON.parse(req.body.payload);
+        InsuranceData = req.body.payload;
         InsuranceData.DateTime = Math.floor(new Date() / 1000).toString();
         InsuranceData.ClaimID = md5(JSON.stringify(InsuranceData) + new Date().toString());
         await Insurance.ClaimInsurancePolicy(req.user, InsuranceData);
@@ -58,7 +58,7 @@ router.post("/api/main/insurance/claim/update/:id", JWTmiddleware, async (req, r
 
     const ID = req.params.id;
     try {
-        InsuranceData = JSON.parse(req.body.payload);
+        InsuranceData = req.body.payload;
         InsuranceData.ClaimID = ID;
         InsuranceData.Date = Math.floor(new Date() / 1000).toString();
         await Insurance.UpdateInsuranceClaim(req.user, InsuranceData);
@@ -77,7 +77,7 @@ router.post("/api/main/insurance/claim/approve/:id", JWTmiddleware, async (req, 
 
     const ID = req.params.id;
     try {
-        InsuranceData = JSON.parse(req.body.payload);
+        InsuranceData = req.body.payload;
         InsuranceData.ClaimID = ID;
         InsuranceData.Date = Math.floor(new Date() / 1000).toString();
         await Insurance.ApproveInsuranceClaim(req.user, InsuranceData);
