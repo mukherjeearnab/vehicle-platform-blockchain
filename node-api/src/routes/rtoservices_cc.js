@@ -18,6 +18,19 @@ router.get("/api/main/rto/getDLVRA/:id", JWTmiddleware, async (req, res) => {
     }
 });
 
+router.post("/api/main/rto/queryDLVRA", JWTmiddleware, async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    try {
+        RTOServicesData = req.body.payload;
+        const data = await RTOServices.QueryDLVRApplication(req.user, RTOServicesData);
+        res.status(200).send(data);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error! Query Parameter Error!" });
+    }
+});
+
 router.post("/api/main/rto/newDLA", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
