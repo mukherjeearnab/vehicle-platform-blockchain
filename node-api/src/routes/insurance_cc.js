@@ -1,12 +1,8 @@
-const ipfsAPI = require("ipfs-api");
 const express = require("express");
 const JWTmiddleware = require("../helpers/jwtVerifyMiddleware");
 const Insurance = require("../../fabric/insurance_cc");
 
 const router = new express.Router();
-const ipfs = ipfsAPI("ipfs.infura.io", "5001", { protocol: "https" });
-const uploadPath = path.join(process.cwd(), "uploads");
-var upload = multer({ dest: uploadPath });
 
 router.get("/api/main/insurance/get/:id", JWTmiddleware, async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
