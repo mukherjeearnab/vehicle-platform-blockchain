@@ -78,7 +78,7 @@ class App extends Component {
                     <Grid container spacing={3}>
                         <Grid item xs>
                             <Link to="/rto/createDL" className={classes.link}>
-                                <Paper className={classes.paper2}>Issue New Driging License</Paper>
+                                <Paper className={classes.paper2}>Issue New Driving License</Paper>
                             </Link>
                         </Grid>
                         <Grid item xs>

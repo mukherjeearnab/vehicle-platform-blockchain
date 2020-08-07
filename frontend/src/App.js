@@ -17,6 +17,8 @@ import viewVRAs from "./pages/rto/viewVRAs";
 import viewDLAs from "./pages/rto/viewDLAs";
 import updateDLA from "./pages/rto/updateDLA";
 import updateVRA from "./pages/rto/updateVRA";
+import newVR from "./pages/rto/newVR";
+import newDL from "./pages/rto/newDL";
 
 function App() {
     return (
@@ -39,6 +41,8 @@ function App() {
                 <Route exact path="/rto/viewDLAs" component={viewDLAs}></Route>
                 <Route exact path="/rto/updateDLA/:id" component={updateDLA}></Route>
                 <Route exact path="/rto/updateVRA/:id" component={updateVRA}></Route>
+                <Route exact path="/rto/createVP" component={newVR}></Route>
+                <Route exact path="/rto/createDL" component={newDL}></Route>
             </ThemeProvider>
         </div>
     );

@@ -79,7 +79,7 @@ class App extends Component {
                                         return (
                                             <TableRow key={content.ID}>
                                                 <TableCell align="left">
-                                                    <Link to={`/firViewer/${content.ApplicationID}`}>
+                                                    <Link to={`/rto/updateVRA/${content.ApplicationID}`}>
                                                         {content.ApplicationID}
                                                     </Link>
                                                 </TableCell>
