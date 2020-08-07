@@ -22,7 +22,7 @@ QueryFIR = async (user, payload) => {
     const contract = network.getContract("vehicle_cc");
 
     // Evaluate the specified transaction.
-    const result = await contract.evaluateTransaction("transferOwnership", payload.RegNo, payload.Curr, payload.Date);
+    const result = await contract.submitTransaction("transferOwnership", payload.RegNo, payload.Curr, payload.Date);
 
     return JSON.parse(result.toString());
 };
