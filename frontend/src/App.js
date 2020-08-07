@@ -19,6 +19,7 @@ import updateDLA from "./pages/rto/updateDLA";
 import updateVRA from "./pages/rto/updateVRA";
 import newVR from "./pages/rto/newVR";
 import newDL from "./pages/rto/newDL";
+import transOwner from "./pages/rto/transferOwnership";
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                 <Route exact path="/rto/updateVRA/:id" component={updateVRA}></Route>
                 <Route exact path="/rto/createVP" component={newVR}></Route>
                 <Route exact path="/rto/createDL" component={newDL}></Route>
+                <Route exact path="/rto/transferOwner/:id" component={transOwner}></Route>
             </ThemeProvider>
         </div>
     );

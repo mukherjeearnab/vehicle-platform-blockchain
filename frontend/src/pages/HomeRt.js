@@ -87,7 +87,7 @@ class App extends Component {
                             </Link>
                         </Grid>
                         <Grid item xs>
-                            <Link to="/rto/transferOwner" className={classes.link}>
+                            <Link to="/rto/transferOwner/0" className={classes.link}>
                                 <Paper className={classes.paper2}>Transfer Ownership of Vehicle</Paper>
                             </Link>
                         </Grid>
