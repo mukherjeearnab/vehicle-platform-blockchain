@@ -391,7 +391,7 @@ func (cc *Chaincode) updateVRApplication(stub shim.ChaincodeStubInterface, param
 	}
 
 	// Create Update struct var
-	applicationToUpdate := dlapp{}
+	applicationToUpdate := vrapp{}
 	err = json.Unmarshal(applicationAsBytes, &applicationToUpdate) //unmarshal it aka JSON.parse()
 	if err != nil {
 		return shim.Error(err.Error())
