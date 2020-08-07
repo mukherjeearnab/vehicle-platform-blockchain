@@ -1,4 +1,5 @@
 const express = require("express");
+const md5 = require("md5");
 const JWTmiddleware = require("../helpers/jwtVerifyMiddleware");
 const Insurance = require("../../fabric/insurance_cc");
 
