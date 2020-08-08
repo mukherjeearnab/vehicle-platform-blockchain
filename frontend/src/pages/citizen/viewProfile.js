@@ -1,106 +1,118 @@
 import React, { Component } from "react";
-import { Button, TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Table, TableBody, TableContainer, TableHead, TableCell, TableRow, Paper } from "@material-ui/core";
+import { TextField, Button, CircularProgress } from "@material-ui/core";
 
 class App extends Component {
     state = {
-        redirect: "",
+        application: {},
+        message: "",
         ID: "",
-        profile: {},
-        output: null,
+        contt: "",
     };
 
-    onComponentDidMount() {
+    async componentDidMount() {
         const { id } = this.props.match.params;
         if (id !== "0") {
             this.setState({
                 ID: id,
                 message: (
                     <p>
-                        Press <b>LOAD Profile</b> to View Profile.
+                        Press <b>Load Citizen Profile</b> to View Profile Details
                     </p>
                 ),
             });
         }
     }
 
-    loadProfile = async () => {
+    onLoad = async () => {
+        console.log(this.state.application);
         const requestOptions = {
             method: "GET",
             headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
         };
-        let response = await fetch("http://192.168.1.30:3000/api/main/citizen/get/" + this.state.ID, requestOptions);
+
+        this.setState({
+            message: (
+                <span>
+                    <CircularProgress />
+                    <br></br> Loading.....
+                </span>
+            ),
+        });
+
+        let response = await fetch("http://192.168.1.30:3000/api/main/profile/get/" + this.state.ID, requestOptions);
         let res = await response.json();
         console.log(res);
-        this.setState({ profile: res });
 
-        let table = (
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="left">
-                                <b>Serial</b>
-                            </TableCell>
-                            <TableCell align="left">
-                                <b>Judgement ID</b>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.profile.VerdictRecord
-                            ? this.state.profile.VerdictRecord.map((content, index) => {
-                                  return (
-                                      <TableRow key={index}>
-                                          <TableCell align="left">{(index + 1).toString()}</TableCell>
-                                          <TableCell align="left">
-                                              <Link target="blank" to={"/viewJudgement/" + content}>
-                                                  {content}
-                                              </Link>
-                                          </TableCell>
-                                      </TableRow>
-                                  );
-                              })
-                            : ""}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        );
+        this.setState({ application: res });
 
-        let output = (
+        var output = <div>{this.createContent()}</div>;
+
+        this.setState({ message: output });
+    };
+
+    createContent = () => {
+        let PUCC, INS;
+        console.log(this.state.application);
+        if (this.state.application.Vehicles)
+            INS = this.state.application.Vehicles.slice(0)
+                .reverse()
+                .map((content, index) => {
+                    return (
+                        <tr>
+                            <td style={{ border: "1px solid black" }}>
+                                <Link to={"/rto/transferOwner/" + content}>{content}</Link>
+                            </td>
+                        </tr>
+                    );
+                });
+        if (this.state.application.LicenseNumbers)
+            PUCC = this.state.application.LicenseNumbers.slice(0)
+                .reverse()
+                .map((content, index) => {
+                    return (
+                        <tr>
+                            <td style={{ border: "1px solid black" }}>
+                                <Link to={"/rto/viewLicense/" + content}>{content}</Link>
+                            </td>
+                        </tr>
+                    );
+                });
+
+        return (
             <div>
-                <img
-                    alt="profile-pic"
-                    width="200"
-                    src={"https://ipfs.infura.io/ipfs/" + this.state.profile.Photo}
-                ></img>
-                <h3>Citizen Name: {this.state.profile.Name}</h3>
-                <h3>Father's Name: {this.state.profile.FathersName}</h3>
-                <h3>Mother's Name: {this.state.profile.MothersName}</h3>
-                <h3>Religion: {this.state.profile.Religion}</h3>
-                <h3>Phone: {this.state.profile.Phone}</h3>
-                <h3>DOB: {new Date(this.state.profile.DOB).toString()}</h3>
-                <h3>Gender: {this.state.profile.Gender}</h3>
-                <h3>Blood Group: {this.state.profile.BloodGroup}</h3>
-                <h3>Address: {this.state.profile.Address}</h3>
-                <h3>Email: {this.state.profile.Email}</h3>
-                <h3>Eye Color: {this.state.profile.EyeColor}</h3>
-                <h3>Occupation: {this.state.profile.Occupation}</h3>
-                <h3>Verdict Record</h3>
-                <div>{table}</div>
+                <h3>UID: {this.state.application.UID}</h3>
+                <h3>Name: {this.state.application.Name}</h3>
+                <h3>Date Of Birth: {this.state.application.DOB}</h3>
+                <h3>Address: {this.state.application.Address}</h3>
+                <h3>Phone: {this.state.application.Phone}</h3>
+                <h2>License Record</h2>
+                <table style={{ border: "1px solid black" }}>
+                    <tr style={{ border: "1px solid black" }}>
+                        <th>Lincense Number</th>
+                    </tr>
+                    {PUCC}
+                </table>
+                <h2>Vehicle Ownership Record</h2>
+                <table style={{ border: "1px solid black" }}>
+                    <tr style={{ border: "1px solid black" }}>
+                        <th>Vehicle Reg No</th>
+                    </tr>
+                    {INS}
+                </table>
+                <br />
+                <br />
             </div>
         );
-        this.setState({ output });
     };
 
     render() {
         return (
             <div>
-                <h2>View Citizen Profile</h2>
+                <h2>View Vehicle Profile</h2>
                 <TextField
                     className="inputs"
-                    label="Citizen ID"
+                    label="Citizen UID"
                     variant="outlined"
                     value={this.state.ID}
                     onChange={(event) => {
@@ -109,13 +121,12 @@ class App extends Component {
                         });
                     }}
                 />
-                <br />
-                <br />
-                <Button m={1} onClick={this.loadProfile} variant="contained" color="primary">
-                    Load Citizen
+                <br /> <br />
+                <Button onClick={this.onLoad} variant="contained" color="primary">
+                    Load Citizen Profile
                 </Button>
-                <hr />
-                {this.state.output}
+                <br /> <br />
+                {this.state.message}
             </div>
         );
     }

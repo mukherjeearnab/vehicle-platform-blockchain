@@ -1,29 +1,31 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { TextField, Button, CircularProgress } from "@material-ui/core";
 
 class App extends Component {
     state = {
-        evidence: {},
+        application: {},
         message: "",
         ID: "",
+        contt: "",
     };
 
-    /*async componentDidMount() {
+    async componentDidMount() {
         const { id } = this.props.match.params;
         if (id !== "0") {
             this.setState({
                 ID: id,
                 message: (
                     <p>
-                        Press <b>LOAD EVIDENCE</b> to View Evidence
+                        Press <b>Load License</b> to View License Details
                     </p>
                 ),
             });
         }
-    }*/
+    }
 
-    onLoadInvestigation = async () => {
-        console.log(this.state.evidence);
+    onLoad = async () => {
+        console.log(this.state.application);
         const requestOptions = {
             method: "GET",
             headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
@@ -38,11 +40,11 @@ class App extends Component {
             ),
         });
 
-        let response = await fetch("http://192.168.1.30:3000/api/main/evidence/read/" + this.state.ID, requestOptions);
+        let response = await fetch("http://192.168.1.30:3000/api/main/rto/getDL/" + this.state.ID, requestOptions);
         let res = await response.json();
         console.log(res);
 
-        this.setState({ evidence: res });
+        this.setState({ application: res });
 
         var output = <div>{this.createContent()}</div>;
 
@@ -53,23 +55,15 @@ class App extends Component {
         return (
             <div>
                 <h3>
-                    Evidence ID:{" "}
-                    <a target="blank" href={"https://ipfs.infura.io/ipfs/" + this.state.evidence.ID}>
-                        {this.state.evidence.ID}
-                    </a>
+                    UID:{" "}
+                    <Link to={"/citizen/viewProfile/" + this.state.application.UID}>{this.state.application.UID}</Link>
                 </h3>
-                <h3>Investigation ID: {this.state.evidence.InvestigationID}</h3>
-                <h3>Date & Time: {this.state.evidence.DateTime}</h3>
-                <h3>Mime Type: {this.state.evidence.MimeType}</h3>
-                <TextField
-                    className="inputs"
-                    label="Description"
-                    readOnly
-                    multiline={true}
-                    rows={8}
-                    variant="outlined"
-                    value={this.state.evidence.Description}
-                />
+                <h3>License Number: {this.state.application.LicenseNumber}</h3>
+                <h3>Vehicle Type: {this.state.application.VehicleType}</h3>
+                <h3>ExpiryDate: {this.state.application.ExpiryDate}</h3>
+                <h3>Signing EmployeeID: {this.state.application.Employee}</h3>
+                <br />
+                <br />
             </div>
         );
     };
@@ -77,10 +71,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h2>New Investigation</h2>
+                <h2>View Driving License</h2>
                 <TextField
                     className="inputs"
-                    label="Evidence ID"
+                    label="License Number"
                     variant="outlined"
                     value={this.state.ID}
                     onChange={(event) => {
@@ -90,15 +84,8 @@ class App extends Component {
                     }}
                 />
                 <br /> <br />
-                <Button
-                    ref={(button) => {
-                        this.LoadBT = button;
-                    }}
-                    onClick={this.onLoadInvestigation}
-                    variant="contained"
-                    color="primary"
-                >
-                    Load Evidence
+                <Button onClick={this.onLoad} variant="contained" color="primary">
+                    Load License
                 </Button>
                 <br /> <br />
                 {this.state.message}

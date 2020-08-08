@@ -21,6 +21,8 @@ import newVR from "./pages/rto/newVR";
 import newDL from "./pages/rto/newDL";
 import transOwner from "./pages/rto/transferOwnership";
 import newViolation from "./pages/police/newViolation";
+import viewProfile from "./pages/citizen/viewProfile";
+import viewLicense from "./pages/rto/viewLicense";
 
 function App() {
     return (
@@ -47,6 +49,8 @@ function App() {
                 <Route exact path="/rto/createDL" component={newDL}></Route>
                 <Route exact path="/police/newViolation" component={newViolation}></Route>
                 <Route exact path="/rto/transferOwner/:id" component={transOwner}></Route>
+                <Route exact path="/citizen/viewProfile/:id" component={viewProfile}></Route>
+                <Route exact path="/rto/viewLicense/:id" component={viewLicense}></Route>
             </ThemeProvider>
         </div>
     );
