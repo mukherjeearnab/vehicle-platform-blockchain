@@ -341,6 +341,13 @@ func (cc *Chaincode) transferOwnership(stub shim.ChaincodeStubInterface, params 
 		return shim.Error(err.Error())
 	}
 
+	// Add Vehicle ID to The Citizen with UID Curr
+	args := util.ToChaincodeArgs("addVehicle", Curr, RegNo)
+	response := stub.InvokeChaincode("profilemanager_cc", args, "mainchannel")
+	if response.Status != shim.OK {
+		return shim.Error(response.Message)
+	}
+
 	// Returned on successful execution of the function
 	return shim.Success(nil)
 }
