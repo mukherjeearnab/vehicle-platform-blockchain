@@ -2,6 +2,7 @@ const ipfsAPI = require("ipfs-api");
 const express = require("express");
 const path = require("path");
 const multer = require("multer");
+const md5 = require("md5");
 const fs = require("fs");
 const JWTmiddleware = require("../helpers/jwtVerifyMiddleware");
 const TrafficViolation = require("../../fabric/trafficviolation_cc");
@@ -43,7 +44,7 @@ router.post("/api/main/trafficviolation/add", upload.single("file"), JWTmiddlewa
             trafficviolationData.Evidence = file[0].path;
             trafficviolationData.DateFiling = Math.floor(new Date() / 1000).toString();
             trafficviolationData.TVID = md5(JSON.stringify(trafficviolationData) + new Date().toString());
-            TrafficViolation.AddTrafficViolation(req.user, trafficviolationData).then(() => {
+            TrafficViolation.FileTV(req.user, trafficviolationData).then(() => {
                 fs.unlinkSync(newname);
                 res.status(200).send({
                     message: "Traffic Violation has been successfully filed!",
