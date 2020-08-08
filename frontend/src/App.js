@@ -23,6 +23,8 @@ import transOwner from "./pages/rto/transferOwnership";
 import newViolation from "./pages/police/newViolation";
 import viewProfile from "./pages/citizen/viewProfile";
 import viewLicense from "./pages/rto/viewLicense";
+import newCert from "./pages/pollution/newCert";
+import viewCert from "./pages/pollution/viewCert";
 
 function App() {
     return (
@@ -51,6 +53,8 @@ function App() {
                 <Route exact path="/rto/transferOwner/:id" component={transOwner}></Route>
                 <Route exact path="/citizen/viewProfile/:id" component={viewProfile}></Route>
                 <Route exact path="/rto/viewLicense/:id" component={viewLicense}></Route>
+                <Route exact path="/pollution/newCert" component={newCert}></Route>
+                <Route exact path="/pollution/viewCert/:id" component={viewCert}></Route>
             </ThemeProvider>
         </div>
     );
