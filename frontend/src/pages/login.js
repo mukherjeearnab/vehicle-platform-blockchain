@@ -23,7 +23,7 @@ class App extends Component {
                 else if (res.group === "rto") this.setState({ redirect: <Redirect to="/HomeRt" /> });
                 else if (res.group === "insurance") this.setState({ redirect: <Redirect to="/HomeIn" /> });
                 else if (res.group === "pollution") this.setState({ redirect: <Redirect to="/HomePu" /> });
-                else if (res.group === "police") this.setState({ redirect: <Redirect to="/HomePu" /> });
+                else if (res.group === "police") this.setState({ redirect: <Redirect to="/HomePo" /> });
                 else;
             }
             this.setState({ redirect: <Redirect to="/" /> });

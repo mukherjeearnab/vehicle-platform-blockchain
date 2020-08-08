@@ -54,37 +54,28 @@ class App extends Component {
                 <Container maxWidth="sm" spacing={10}>
                     <Grid container spacing={3}>
                         <Grid item xs>
-                            <Link to={"/viewProfile/0/"} className={classes.link}>
-                                <Paper className={classes.paper}>Check Citizen Profile</Paper>
+                            <Link to={"/citizen/viewProfile/0/"} className={classes.link}>
+                                <Paper className={classes.paper}>
+                                    Check Citizen
+                                    <br /> Profile
+                                </Paper>
                             </Link>
                         </Grid>
                         <Grid item xs>
-                            <Link to={"/viewFIRs/"} className={classes.link}>
-                                <Paper className={classes.paper}>View FIRs</Paper>
-                            </Link>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <Link to="/viewInvestigation/0/" className={classes.link}>
-                                <Paper className={classes.paper2}>View / Update Investigation</Paper>
+                            <Link to={"/rto/transferOwner/0"} className={classes.link}>
+                                <Paper className={classes.paper}>Check Vehicle Details</Paper>
                             </Link>
                         </Grid>
                         <Grid item xs>
-                            <Link to="/newChargesheet/" className={classes.link}>
-                                <Paper className={classes.paper2}>File New Charge-Sheet</Paper>
+                            <Link to="/rto/license/0/" className={classes.link}>
+                                <Paper className={classes.paper}>Check Driving License</Paper>
                             </Link>
                         </Grid>
                     </Grid>
                     <Grid container spacing={3}>
                         <Grid item xs>
-                            <Link to="/submitEvidence" className={classes.link}>
-                                <Paper className={classes.paper2}>Submit Evidence</Paper>
-                            </Link>
-                        </Grid>
-                        <Grid item xs>
-                            <Link to="/viewChargeSheet/0" className={classes.link}>
-                                <Paper className={classes.paper2}>View / Update Charge-Sheet</Paper>
+                            <Link to="/police/newViolation/" className={classes.link}>
+                                <Paper className={classes.paper2}>File Traffic Violation</Paper>
                             </Link>
                         </Grid>
                     </Grid>
