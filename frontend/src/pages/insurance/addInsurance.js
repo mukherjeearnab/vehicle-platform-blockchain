@@ -8,21 +8,8 @@ class App extends Component {
         message: "",
         ID: "",
         contt: "",
+        contt2: "",
     };
-
-    async componentDidMount() {
-        const { id } = this.props.match.params;
-        if (id !== "0") {
-            this.setState({
-                ID: id,
-                message: (
-                    <p>
-                        Press <b>Load Vehicle Profile</b> to View Vehicle Details
-                    </p>
-                ),
-            });
-        }
-    }
 
     onLoad = async () => {
         console.log(this.state.application);
@@ -58,7 +45,10 @@ class App extends Component {
             headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
             body: JSON.stringify({
                 payload: {
-                    Curr: this.state.contt,
+                    VehicleRegNo: this.state.application.RegNo,
+                    UID: this.state.application.Owner,
+                    Duration: this.state.contt,
+                    Content: this.state.contt2,
                 },
             }),
         };
@@ -72,13 +62,10 @@ class App extends Component {
             ),
         });
 
-        let response = await fetch(
-            "http://192.168.1.30:3000/api/main/vehicle/transfer/" + this.state.ID,
-            requestOptions
-        );
+        let response = await fetch("http://192.168.1.30:3000/api/main/insurance/policy/add", requestOptions);
         let res = await response.json();
         console.log(res);
-        this.setState({ message: res.message + " | " + res.id + " | " + res.curr });
+        this.setState({ message: res.message + " | " + res.id });
     };
 
     createContent = () => {
@@ -107,7 +94,7 @@ class App extends Component {
                     return (
                         <tr>
                             <td style={{ border: "1px solid black" }}>
-                                <Link to={"/insurance/addClaim/" + content}>{content}</Link>
+                                <Link to={"/pollution/viewCert/" + content}>{content}</Link>
                             </td>
                         </tr>
                     );
@@ -188,10 +175,10 @@ class App extends Component {
                 </Button>
                 <br /> <br />
                 {this.state.message}
-                <h4>Trasfer Ownership</h4>
+                <h4>Insurance Policy Params</h4>
                 <TextField
                     className="inputs"
-                    label="New Owner UID"
+                    label="Duration"
                     variant="outlined"
                     value={this.state.contt}
                     onChange={(event) => {
@@ -201,9 +188,21 @@ class App extends Component {
                         });
                     }}
                 />
+                <TextField
+                    className="inputs"
+                    label="Content"
+                    variant="outlined"
+                    value={this.state.contt2}
+                    onChange={(event) => {
+                        console.log(this.state.contt2);
+                        this.setState({
+                            contt2: event.target.value,
+                        });
+                    }}
+                />
                 <br /> <br />
                 <Button onClick={this.onUpdateStatus} variant="contained" color="primary">
-                    Transfer Ownership
+                    Add Policy
                 </Button>
             </div>
         );

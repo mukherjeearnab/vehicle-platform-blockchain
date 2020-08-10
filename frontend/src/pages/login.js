@@ -75,7 +75,7 @@ class App extends Component {
                     >
                         <MenuItem value={"citizen"}>Citizen</MenuItem>
                         <MenuItem value={"rto"}>RTO</MenuItem>
-                        <MenuItem value={"insurane"}>Insurance</MenuItem>
+                        <MenuItem value={"insurance"}>Insurance</MenuItem>
                         <MenuItem value={"pollution"}>Pollution</MenuItem>
                         <MenuItem value={"police"}>Police</MenuItem>
                     </Select>

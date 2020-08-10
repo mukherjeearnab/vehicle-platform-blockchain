@@ -40,7 +40,7 @@ class App extends Component {
             ),
         });
 
-        let response = await fetch("http://192.168.1.30:3000/api/main/vehicle/get/" + this.state.ID, requestOptions);
+        let response = await fetch("http://192.168.1.30:3000/api/main/insurance/get/" + this.state.ID, requestOptions);
         let res = await response.json();
         console.log(res);
 
@@ -58,7 +58,8 @@ class App extends Component {
             headers: { "Content-Type": "application/json", "x-access-token": localStorage.getItem("session") },
             body: JSON.stringify({
                 payload: {
-                    Curr: this.state.contt,
+                    Content: this.state.contt,
+                    InsurancePolicyID: this.state.ID,
                 },
             }),
         };
@@ -72,54 +73,23 @@ class App extends Component {
             ),
         });
 
-        let response = await fetch(
-            "http://192.168.1.30:3000/api/main/vehicle/transfer/" + this.state.ID,
-            requestOptions
-        );
+        let response = await fetch("http://192.168.1.30:3000/api/main/insurance/claim/add", requestOptions);
         let res = await response.json();
         console.log(res);
-        this.setState({ message: res.message + " | " + res.id + " | " + res.curr });
+        this.setState({ message: res.message + " | " + res.id });
     };
 
     createContent = () => {
-        let OWNER, PUCC, INS;
-        console.log(this.state.application);
-        if (this.state.application.OwnershipHistory)
-            OWNER = this.state.application.OwnershipHistory.slice(0)
-                .reverse()
-                .map((content, index) => {
-                    const date = new Date(content.Date).toString();
+        let PUCC;
 
-                    return (
-                        <tr>
-                            <td style={{ border: "1px solid black" }}>{content.Prev}</td>
-                            <td style={{ border: "1px solid black" }}>{content.Curr}</td>
-                            <td style={{ border: "1px solid black" }}>{content.Employee}</td>
-                            <td style={{ border: "1px solid black" }}>{date}</td>
-                        </tr>
-                    );
-                });
-
-        if (this.state.application.Insurance)
-            INS = this.state.application.Insurance.slice(0)
+        if (this.state.application.Claims)
+            PUCC = this.state.application.Claims.slice(0)
                 .reverse()
                 .map((content, index) => {
                     return (
                         <tr>
                             <td style={{ border: "1px solid black" }}>
-                                <Link to={"/insurance/addClaim/" + content}>{content}</Link>
-                            </td>
-                        </tr>
-                    );
-                });
-        if (this.state.application.PollutionCert)
-            PUCC = this.state.application.PollutionCert.slice(0)
-                .reverse()
-                .map((content, index) => {
-                    return (
-                        <tr>
-                            <td style={{ border: "1px solid black" }}>
-                                <Link to={"/pollution/viewCert/" + content}>{content}</Link>
+                                <Link to={"/isurance/viewClaim/" + content}>{content}</Link>
                             </td>
                         </tr>
                     );
@@ -127,39 +97,18 @@ class App extends Component {
 
         return (
             <div>
-                <h3>Reg No: {this.state.application.RegNo}</h3>
-                <h3>Make: {this.state.application.Make}</h3>
-                <h3>Model: {this.state.application.Model}</h3>
-                <h3>ModelVariant: {this.state.application.ModelVariant}</h3>
-                <h3>ModelYear: {this.state.application.ModelYear}</h3>
-                <h3>Color: {this.state.application.Color}</h3>
-                <h3>Engine No: {this.state.application.EngineNo}</h3>
-                <h3>Chassis No: {this.state.application.ChassisNo}</h3>
-                <h3>Owner: {this.state.application.Owner}</h3>
-                <h3>Creator: {this.state.application.Creator}</h3>
-                <h2>PUCC Record</h2>
+                <h3>Insurance ID: {this.state.application.InsuranceID}</h3>
+                <h3>Vehicle Reg No: {this.state.application.VehicleRegNo}</h3>
+                <h3>Vehicle Owner: {this.state.application.UID}</h3>
+                <h3>Date: {this.state.application.Date}</h3>
+                <h3>Duration: {this.state.application.Duration}</h3>
+                <h3>Content: {this.state.application.Content}</h3>
+                <h2>Policy Claims</h2>
                 <table style={{ border: "1px solid black" }}>
                     <tr style={{ border: "1px solid black" }}>
-                        <th>Certificate ID</th>
+                        <th>Claim ID</th>
                     </tr>
                     {PUCC}
-                </table>
-                <h2>Insurance Record</h2>
-                <table style={{ border: "1px solid black" }}>
-                    <tr style={{ border: "1px solid black" }}>
-                        <th>Policy ID</th>
-                    </tr>
-                    {INS}
-                </table>
-                <h2>Ownership History</h2>
-                <table style={{ border: "1px solid black" }}>
-                    <tr style={{ border: "1px solid black" }}>
-                        <th>Prev Owner</th>
-                        <th>Curr Owner</th>
-                        <th>Employee ID</th>
-                        <th>Date</th>
-                    </tr>
-                    {OWNER}
                 </table>
                 <br />
                 <br />
@@ -170,10 +119,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h2>View Vehicle Profile</h2>
+                <h2>View Insurance Policy</h2>
                 <TextField
                     className="inputs"
-                    label="Vehicle Reg No"
+                    label="Policy ID"
                     variant="outlined"
                     value={this.state.ID}
                     onChange={(event) => {
@@ -184,14 +133,14 @@ class App extends Component {
                 />
                 <br /> <br />
                 <Button onClick={this.onLoad} variant="contained" color="primary">
-                    Load Profile
+                    Load Policy
                 </Button>
                 <br /> <br />
                 {this.state.message}
-                <h4>Trasfer Ownership</h4>
+                <h4>Claim Policy</h4>
                 <TextField
                     className="inputs"
-                    label="New Owner UID"
+                    label="Claim Content"
                     variant="outlined"
                     value={this.state.contt}
                     onChange={(event) => {
@@ -203,7 +152,7 @@ class App extends Component {
                 />
                 <br /> <br />
                 <Button onClick={this.onUpdateStatus} variant="contained" color="primary">
-                    Transfer Ownership
+                    Add Insurance Claim
                 </Button>
             </div>
         );

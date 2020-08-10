@@ -25,6 +25,8 @@ import viewProfile from "./pages/citizen/viewProfile";
 import viewLicense from "./pages/rto/viewLicense";
 import newCert from "./pages/pollution/newCert";
 import viewCert from "./pages/pollution/viewCert";
+import addPolicy from "./pages/insurance/addInsurance";
+import addClaim from "./pages/insurance/claimInsurance";
 
 function App() {
     return (
@@ -55,6 +57,8 @@ function App() {
                 <Route exact path="/rto/viewLicense/:id" component={viewLicense}></Route>
                 <Route exact path="/pollution/newCert" component={newCert}></Route>
                 <Route exact path="/pollution/viewCert/:id" component={viewCert}></Route>
+                <Route exact path="/insurance/addPolicy" component={addPolicy}></Route>
+                <Route exact path="/insurance/addClaim/:id" component={addClaim}></Route>
             </ThemeProvider>
         </div>
     );
