@@ -168,7 +168,7 @@ func (cc *Chaincode) readInsurancePolicyClaim(stub shim.ChaincodeStubInterface, 
 func (cc *Chaincode) claimInsurancePolicy(stub shim.ChaincodeStubInterface, params []string) sc.Response {
 	// Check Access
 	creatorOrg, creatorCertIssuer, err := getTxCreatorInfo(stub)
-	if !authenticateInsurance(creatorOrg, creatorCertIssuer) {
+	if !authenticateCitizen(creatorOrg, creatorCertIssuer) {
 		return shim.Error("{\"Error\":\"Access Denied!\",\"Payload\":{\"MSP\":\"" + creatorOrg + "\",\"CA\":\"" + creatorCertIssuer + "\"}}")
 	}
 
@@ -440,4 +440,9 @@ func getTxCreatorInfoC(stub shim.ChaincodeStubInterface) (string, string, string
 // Authenticate => Insurance
 func authenticateInsurance(mspID string, certCN string) bool {
 	return (mspID == "InsuranceMSP") && (certCN == "ca.insurance.vehicle.com")
+}
+
+// Authenticate => Citizen
+func authenticateCitizen(mspID string, certCN string) bool {
+	return (mspID == "CitizenMSP") && (certCN == "ca.citizen.vehicle.com")
 }
