@@ -166,5 +166,5 @@ func getTxCreatorInfo(stub shim.ChaincodeStubInterface) (string, string, string,
 
 // Authenticate => Pollution
 func authenticatePollution(mspID string, certCN string) bool {
-	return (mspID == "PollutionMSP") && (certCN == "ca.pollution.vehicle.com")
+	return (mspID == "PollutionMSP") && (certCN == "ca.pollution.vtan.com")
 }

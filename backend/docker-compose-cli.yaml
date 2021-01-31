@@ -1,12 +1,12 @@
 version: "2"
 
 volumes:
-    orderer.vehicle.com:
-    peer0.citizen.vehicle.com:
-    peer0.rto.vehicle.com:
-    peer0.pollution.vehicle.com:
-    peer0.insurance.vehicle.com:
-    peer0.police.vehicle.com:
+    orderer.vtan.com:
+    peer0.citizen.vtan.com:
+    peer0.rto.vtan.com:
+    peer0.pollution.vtan.com:
+    peer0.insurance.vtan.com:
+    peer0.police.vtan.com:
     caCitizen:
     caRTO:
     caPollution:
@@ -14,66 +14,66 @@ volumes:
     caPolice:
 
 networks:
-    testnet:
+    vtannet:
 
 services:
-    orderer.vehicle.com:
+    orderer.vtan.com:
         extends:
             file: base/docker-compose-base.yaml
-            service: orderer.vehicle.com
-        container_name: orderer.vehicle.com
+            service: orderer.vtan.com
+        container_name: orderer.vtan.com
         networks:
-            - testnet
+            - vtannet
 
-    peer0.citizen.vehicle.com:
-        container_name: peer0.citizen.vehicle.com
+    peer0.citizen.vtan.com:
+        container_name: peer0.citizen.vtan.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.citizen.vehicle.com
+            service: peer0.citizen.vtan.com
         networks:
-            - testnet
+            - vtannet
         depends_on:
-            - couchdb.peer0.citizen.vehicle.com
+            - couchdb.peer0.citizen.vtan.com
 
-    peer0.rto.vehicle.com:
-        container_name: peer0.rto.vehicle.com
+    peer0.rto.vtan.com:
+        container_name: peer0.rto.vtan.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.rto.vehicle.com
+            service: peer0.rto.vtan.com
         networks:
-            - testnet
+            - vtannet
         depends_on:
-            - couchdb.peer0.rto.vehicle.com
+            - couchdb.peer0.rto.vtan.com
 
-    peer0.pollution.vehicle.com:
-        container_name: peer0.pollution.vehicle.com
+    peer0.pollution.vtan.com:
+        container_name: peer0.pollution.vtan.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.pollution.vehicle.com
+            service: peer0.pollution.vtan.com
         networks:
-            - testnet
+            - vtannet
         depends_on:
-            - couchdb.peer0.pollution.vehicle.com
+            - couchdb.peer0.pollution.vtan.com
 
-    peer0.insurance.vehicle.com:
-        container_name: peer0.insurance.vehicle.com
+    peer0.insurance.vtan.com:
+        container_name: peer0.insurance.vtan.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.insurance.vehicle.com
+            service: peer0.insurance.vtan.com
         networks:
-            - testnet
+            - vtannet
         depends_on:
-            - couchdb.peer0.insurance.vehicle.com
+            - couchdb.peer0.insurance.vtan.com
 
-    peer0.police.vehicle.com:
-        container_name: peer0.police.vehicle.com
+    peer0.police.vtan.com:
+        container_name: peer0.police.vtan.com
         extends:
             file: base/docker-compose-base.yaml
-            service: peer0.police.vehicle.com
+            service: peer0.police.vtan.com
         networks:
-            - testnet
+            - vtannet
         depends_on:
-            - couchdb.peer0.police.vehicle.com
+            - couchdb.peer0.police.vtan.com
 
     caCitizen:
         container_name: caCitizen
@@ -81,7 +81,7 @@ services:
             file: base/docker-compose-base.yaml
             service: caCitizen
         networks:
-            - testnet
+            - vtannet
 
     caRTO:
         container_name: caRTO
@@ -89,7 +89,7 @@ services:
             file: base/docker-compose-base.yaml
             service: caRTO
         networks:
-            - testnet
+            - vtannet
 
     caPollution:
         container_name: caPollution
@@ -97,7 +97,7 @@ services:
             file: base/docker-compose-base.yaml
             service: caPollution
         networks:
-            - testnet
+            - vtannet
 
     caInsurance:
         container_name: caInsurance
@@ -105,7 +105,7 @@ services:
             file: base/docker-compose-base.yaml
             service: caInsurance
         networks:
-            - testnet
+            - vtannet
 
     caPolice:
         container_name: caPolice
@@ -113,10 +113,10 @@ services:
             file: base/docker-compose-base.yaml
             service: caPolice
         networks:
-            - testnet
+            - vtannet
 
-    couchdb.peer0.citizen.vehicle.com:
-        container_name: couchdb.peer0.citizen.vehicle.com
+    couchdb.peer0.citizen.vtan.com:
+        container_name: couchdb.peer0.citizen.vtan.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -124,10 +124,10 @@ services:
         ports:
             - "5984:5984"
         networks:
-            - testnet
+            - vtannet
 
-    couchdb.peer0.rto.vehicle.com:
-        container_name: couchdb.peer0.rto.vehicle.com
+    couchdb.peer0.rto.vtan.com:
+        container_name: couchdb.peer0.rto.vtan.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -135,10 +135,10 @@ services:
         ports:
             - "6984:5984"
         networks:
-            - testnet
+            - vtannet
 
-    couchdb.peer0.pollution.vehicle.com:
-        container_name: couchdb.peer0.pollution.vehicle.com
+    couchdb.peer0.pollution.vtan.com:
+        container_name: couchdb.peer0.pollution.vtan.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -146,10 +146,10 @@ services:
         ports:
             - "7984:5984"
         networks:
-            - testnet
+            - vtannet
 
-    couchdb.peer0.insurance.vehicle.com:
-        container_name: couchdb.peer0.insurance.vehicle.com
+    couchdb.peer0.insurance.vtan.com:
+        container_name: couchdb.peer0.insurance.vtan.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -157,10 +157,10 @@ services:
         ports:
             - "8984:5984"
         networks:
-            - testnet
+            - vtannet
 
-    couchdb.peer0.police.vehicle.com:
-        container_name: couchdb.peer0.police.vehicle.com
+    couchdb.peer0.police.vtan.com:
+        container_name: couchdb.peer0.police.vtan.com
         image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=admin
@@ -168,7 +168,7 @@ services:
         ports:
             - "9984:5984"
         networks:
-            - testnet
+            - vtannet
 
     cli:
         container_name: cli
@@ -181,13 +181,13 @@ services:
             #- FABRIC_LOGGING_SPEC=DEBUG
             - FABRIC_LOGGING_SPEC=INFO
             - CORE_PEER_ID=cli
-            - CORE_PEER_ADDRESS=peer0.citizen.vehicle.com:7051
+            - CORE_PEER_ADDRESS=peer0.citizen.vtan.com:7051
             - CORE_PEER_LOCALMSPID=CitizenMSP
             - CORE_PEER_TLS_ENABLED=true
-            - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls/server.crt
-            - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls/server.key
-            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls/ca.crt
-            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vehicle.com/users/Admin@citizen.vehicle.com/msp
+            - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vtan.com/peers/peer0.citizen.vtan.com/tls/server.crt
+            - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vtan.com/peers/peer0.citizen.vtan.com/tls/server.key
+            - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vtan.com/peers/peer0.citizen.vtan.com/tls/ca.crt
+            - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/citizen.vtan.com/users/Admin@citizen.vtan.com/msp
         working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
         command: /bin/bash
         volumes:
@@ -197,16 +197,16 @@ services:
             - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
             - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
         depends_on:
-            - orderer.vehicle.com
-            - peer0.citizen.vehicle.com
-            - peer0.rto.vehicle.com
-            - peer0.pollution.vehicle.com
-            - peer0.insurance.vehicle.com
-            - peer0.police.vehicle.com
+            - orderer.vtan.com
+            - peer0.citizen.vtan.com
+            - peer0.rto.vtan.com
+            - peer0.pollution.vtan.com
+            - peer0.insurance.vtan.com
+            - peer0.police.vtan.com
             - caCitizen
             - caRTO
             - caPollution
             - caInsurance
             - caPolice
         networks:
-            - testnet
+            - vtannet

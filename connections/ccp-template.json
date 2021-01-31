@@ -14,24 +14,24 @@
     "organizations": {
         "${ORG}": {
             "mspid": "${ORGMSP}MSP",
-            "peers": ["peer0.${ORG}.vehicle.com"],
-            "certificateAuthorities": ["ca.${ORG}.vehicle.com"]
+            "peers": ["peer0.${ORG}.vtan.com"],
+            "certificateAuthorities": ["ca.${ORG}.vtan.com"]
         }
     },
     "peers": {
-        "peer0.${ORG}.vehicle.com": {
+        "peer0.${ORG}.vtan.com": {
             "url": "grpcs://localhost:${P0PORT}",
             "tlsCACerts": {
                 "pem": "${PEERPEM}"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.${ORG}.vehicle.com",
-                "hostnameOverride": "peer0.${ORG}.vehicle.com"
+                "ssl-target-name-override": "peer0.${ORG}.vtan.com",
+                "hostnameOverride": "peer0.${ORG}.vtan.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.${ORG}.vehicle.com": {
+        "ca.${ORG}.vtan.com": {
             "url": "https://localhost:${CAPORT}",
             "caName": "ca-${ORG}",
             "tlsCACerts": {

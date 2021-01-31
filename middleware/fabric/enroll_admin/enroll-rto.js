@@ -10,7 +10,7 @@ const ccp = require("../ccp/connection-rto.json");
 async function main() {
     try {
         // Create a new CA client for interacting with the CA.
-        const caInfo = ccp.certificateAuthorities["ca.rto.vehicle.com"];
+        const caInfo = ccp.certificateAuthorities["ca.rto.vtan.com"];
         // console.log(ccp.tlsCACerts);
         // const caTLSCACerts = caInfo.tlsCACerts.pem;
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: [], verify: false }, caInfo.caName);

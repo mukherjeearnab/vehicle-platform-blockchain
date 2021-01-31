@@ -20,8 +20,8 @@ ORG=citizen
 ORGMSP=Citizen
 P0PORT=7051
 CAPORT=7054
-PEERPEM=../crypto-config/peerOrganizations/citizen.vehicle.com/tlsca/tlsca.citizen.vehicle.com-cert.pem
-CAPEM=../crypto-config/peerOrganizations/citizen.vehicle.com/ca/ca.citizen.vehicle.com-cert.pem
+PEERPEM=../crypto-config/peerOrganizations/citizen.vtan.com/tlsca/tlsca.citizen.vtan.com-cert.pem
+CAPEM=../crypto-config/peerOrganizations/citizen.vtan.com/ca/ca.citizen.vtan.com-cert.pem
 
 echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" >../../connections/connection-citizen.json
 
@@ -29,16 +29,16 @@ ORG=rto
 ORGMSP=RTO
 P0PORT=8051
 CAPORT=8054
-PEERPEM=../crypto-config/peerOrganizations/rto.vehicle.com/tlsca/tlsca.rto.vehicle.com-cert.pem
-CAPEM=../crypto-config/peerOrganizations/rto.vehicle.com/ca/ca.rto.vehicle.com-cert.pem
+PEERPEM=../crypto-config/peerOrganizations/rto.vtan.com/tlsca/tlsca.rto.vtan.com-cert.pem
+CAPEM=../crypto-config/peerOrganizations/rto.vtan.com/ca/ca.rto.vtan.com-cert.pem
 
 echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" >../../connections/connection-rto.json
 ORG=pollution
 ORGMSP=Pollution
 P0PORT=9051
 CAPORT=9054
-PEERPEM=../crypto-config/peerOrganizations/pollution.vehicle.com/tlsca/tlsca.pollution.vehicle.com-cert.pem
-CAPEM=../crypto-config/peerOrganizations/pollution.vehicle.com/ca/ca.pollution.vehicle.com-cert.pem
+PEERPEM=../crypto-config/peerOrganizations/pollution.vtan.com/tlsca/tlsca.pollution.vtan.com-cert.pem
+CAPEM=../crypto-config/peerOrganizations/pollution.vtan.com/ca/ca.pollution.vtan.com-cert.pem
 
 echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" >../../connections/connection-pollution.json
 
@@ -46,8 +46,8 @@ ORG=insurance
 ORGMSP=Insurance
 P0PORT=10051
 CAPORT=10054
-PEERPEM=../crypto-config/peerOrganizations/insurance.vehicle.com/tlsca/tlsca.insurance.vehicle.com-cert.pem
-CAPEM=../crypto-config/peerOrganizations/insurance.vehicle.com/ca/ca.insurance.vehicle.com-cert.pem
+PEERPEM=../crypto-config/peerOrganizations/insurance.vtan.com/tlsca/tlsca.insurance.vtan.com-cert.pem
+CAPEM=../crypto-config/peerOrganizations/insurance.vtan.com/ca/ca.insurance.vtan.com-cert.pem
 
 echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" >../../connections/connection-insurance.json
 
@@ -55,7 +55,7 @@ ORG=police
 ORGMSP=Police
 P0PORT=11051
 CAPORT=11054
-PEERPEM=../crypto-config/peerOrganizations/police.vehicle.com/tlsca/tlsca.police.vehicle.com-cert.pem
-CAPEM=../crypto-config/peerOrganizations/police.vehicle.com/ca/ca.police.vehicle.com-cert.pem
+PEERPEM=../crypto-config/peerOrganizations/police.vtan.com/tlsca/tlsca.police.vtan.com-cert.pem
+CAPEM=../crypto-config/peerOrganizations/police.vtan.com/ca/ca.police.vtan.com-cert.pem
 
 echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" >../../connections/connection-police.json

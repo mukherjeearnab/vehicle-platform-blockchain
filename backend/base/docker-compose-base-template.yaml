@@ -1,146 +1,146 @@
 version: "2"
 
 services:
-    orderer.vehicle.com:
-        container_name: orderer.vehicle.com
+    orderer.vtan.com:
+        container_name: orderer.vtan.com
         extends:
             file: peer-base.yaml
             service: orderer-base
         volumes:
             - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-            - ../crypto-config/ordererOrganizations/vehicle.com/orderers/orderer.vehicle.com/msp:/var/hyperledger/orderer/msp
-            - ../crypto-config/ordererOrganizations/vehicle.com/orderers/orderer.vehicle.com/tls/:/var/hyperledger/orderer/tls
-            - orderer.vehicle.com:/var/hyperledger/production/orderer
+            - ../crypto-config/ordererOrganizations/vtan.com/orderers/orderer.vtan.com/msp:/var/hyperledger/orderer/msp
+            - ../crypto-config/ordererOrganizations/vtan.com/orderers/orderer.vtan.com/tls/:/var/hyperledger/orderer/tls
+            - orderer.vtan.com:/var/hyperledger/production/orderer
         ports:
             - 7050:7050
 
-    peer0.citizen.vehicle.com:
-        container_name: peer0.citizen.vehicle.com
+    peer0.citizen.vtan.com:
+        container_name: peer0.citizen.vtan.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=peer0.citizen.vehicle.com
-            - CORE_PEER_ADDRESS=peer0.citizen.vehicle.com:7051
+            - CORE_PEER_ID=peer0.citizen.vtan.com
+            - CORE_PEER_ADDRESS=peer0.citizen.vtan.com:7051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-            - CORE_PEER_CHAINCODEADDRESS=peer0.citizen.vehicle.com:7052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.citizen.vtan.com:7052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.rto.vehicle.com:8051
-            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.citizen.vehicle.com:7051
+            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.rto.vtan.com:8051
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.citizen.vtan.com:7051
             - CORE_PEER_LOCALMSPID=CitizenMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.citizen.vehicle.com:5984
+            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.citizen.vtan.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
             - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
         volumes:
             - /var/run/:/host/var/run/
-            - ../crypto-config/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/msp:/etc/hyperledger/fabric/msp
-            - ../crypto-config/peerOrganizations/citizen.vehicle.com/peers/peer0.citizen.vehicle.com/tls:/etc/hyperledger/fabric/tls
-            - peer0.citizen.vehicle.com:/var/hyperledger/production
+            - ../crypto-config/peerOrganizations/citizen.vtan.com/peers/peer0.citizen.vtan.com/msp:/etc/hyperledger/fabric/msp
+            - ../crypto-config/peerOrganizations/citizen.vtan.com/peers/peer0.citizen.vtan.com/tls:/etc/hyperledger/fabric/tls
+            - peer0.citizen.vtan.com:/var/hyperledger/production
         ports:
             - 7051:7051
 
-    peer0.rto.vehicle.com:
-        container_name: peer0.rto.vehicle.com
+    peer0.rto.vtan.com:
+        container_name: peer0.rto.vtan.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=peer0.rto.vehicle.com
-            - CORE_PEER_ADDRESS=peer0.rto.vehicle.com:8051
+            - CORE_PEER_ID=peer0.rto.vtan.com
+            - CORE_PEER_ADDRESS=peer0.rto.vtan.com:8051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
-            - CORE_PEER_CHAINCODEADDRESS=peer0.rto.vehicle.com:8052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.rto.vtan.com:8052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
-            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.rto.vehicle.com:8051
-            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.rto.vtan.com:8051
+            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vtan.com:7051
             - CORE_PEER_LOCALMSPID=RTOMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.rto.vehicle.com:5984
+            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.rto.vtan.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
             - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
         volumes:
             - /var/run/:/host/var/run/
-            - ../crypto-config/peerOrganizations/rto.vehicle.com/peers/peer0.rto.vehicle.com/msp:/etc/hyperledger/fabric/msp
-            - ../crypto-config/peerOrganizations/rto.vehicle.com/peers/peer0.rto.vehicle.com/tls:/etc/hyperledger/fabric/tls
-            - peer0.rto.vehicle.com:/var/hyperledger/production
+            - ../crypto-config/peerOrganizations/rto.vtan.com/peers/peer0.rto.vtan.com/msp:/etc/hyperledger/fabric/msp
+            - ../crypto-config/peerOrganizations/rto.vtan.com/peers/peer0.rto.vtan.com/tls:/etc/hyperledger/fabric/tls
+            - peer0.rto.vtan.com:/var/hyperledger/production
         ports:
             - 8051:8051
 
-    peer0.pollution.vehicle.com:
-        container_name: peer0.pollution.vehicle.com
+    peer0.pollution.vtan.com:
+        container_name: peer0.pollution.vtan.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=peer0.pollution.vehicle.com
-            - CORE_PEER_ADDRESS=peer0.pollution.vehicle.com:9051
+            - CORE_PEER_ID=peer0.pollution.vtan.com
+            - CORE_PEER_ADDRESS=peer0.pollution.vtan.com:9051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-            - CORE_PEER_CHAINCODEADDRESS=peer0.pollution.vehicle.com:9052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.pollution.vtan.com:9052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
-            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.pollution.vehicle.com:9051
-            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.pollution.vtan.com:9051
+            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vtan.com:7051
             - CORE_PEER_LOCALMSPID=PollutionMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.pollution.vehicle.com:5984
+            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.pollution.vtan.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
             - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
         volumes:
             - /var/run/:/host/var/run/
-            - ../crypto-config/peerOrganizations/pollution.vehicle.com/peers/peer0.pollution.vehicle.com/msp:/etc/hyperledger/fabric/msp
-            - ../crypto-config/peerOrganizations/pollution.vehicle.com/peers/peer0.pollution.vehicle.com/tls:/etc/hyperledger/fabric/tls
-            - peer0.pollution.vehicle.com:/var/hyperledger/production
+            - ../crypto-config/peerOrganizations/pollution.vtan.com/peers/peer0.pollution.vtan.com/msp:/etc/hyperledger/fabric/msp
+            - ../crypto-config/peerOrganizations/pollution.vtan.com/peers/peer0.pollution.vtan.com/tls:/etc/hyperledger/fabric/tls
+            - peer0.pollution.vtan.com:/var/hyperledger/production
         ports:
             - 9051:9051
 
-    peer0.insurance.vehicle.com:
-        container_name: peer0.insurance.vehicle.com
+    peer0.insurance.vtan.com:
+        container_name: peer0.insurance.vtan.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=peer0.insurance.vehicle.com
-            - CORE_PEER_ADDRESS=peer0.insurance.vehicle.com:10051
+            - CORE_PEER_ID=peer0.insurance.vtan.com
+            - CORE_PEER_ADDRESS=peer0.insurance.vtan.com:10051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
-            - CORE_PEER_CHAINCODEADDRESS=peer0.insurance.vehicle.com:10052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.insurance.vtan.com:10052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
-            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.insurance.vehicle.com:10051
-            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.insurance.vtan.com:10051
+            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vtan.com:7051
             - CORE_PEER_LOCALMSPID=InsuranceMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.insurance.vehicle.com:5984
+            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.insurance.vtan.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
             - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
         volumes:
             - /var/run/:/host/var/run/
-            - ../crypto-config/peerOrganizations/insurance.vehicle.com/peers/peer0.insurance.vehicle.com/msp:/etc/hyperledger/fabric/msp
-            - ../crypto-config/peerOrganizations/insurance.vehicle.com/peers/peer0.insurance.vehicle.com/tls:/etc/hyperledger/fabric/tls
-            - peer0.insurance.vehicle.com:/var/hyperledger/production
+            - ../crypto-config/peerOrganizations/insurance.vtan.com/peers/peer0.insurance.vtan.com/msp:/etc/hyperledger/fabric/msp
+            - ../crypto-config/peerOrganizations/insurance.vtan.com/peers/peer0.insurance.vtan.com/tls:/etc/hyperledger/fabric/tls
+            - peer0.insurance.vtan.com:/var/hyperledger/production
         ports:
             - 10051:10051
 
-    peer0.police.vehicle.com:
-        container_name: peer0.police.vehicle.com
+    peer0.police.vtan.com:
+        container_name: peer0.police.vtan.com
         extends:
             file: peer-base.yaml
             service: peer-base
         environment:
-            - CORE_PEER_ID=peer0.police.vehicle.com
-            - CORE_PEER_ADDRESS=peer0.police.vehicle.com:11051
+            - CORE_PEER_ID=peer0.police.vtan.com
+            - CORE_PEER_ADDRESS=peer0.police.vtan.com:11051
             - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
-            - CORE_PEER_CHAINCODEADDRESS=peer0.police.vehicle.com:11052
+            - CORE_PEER_CHAINCODEADDRESS=peer0.police.vtan.com:11052
             - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.police.vehicle.com:11051
-            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vehicle.com:7051
+            - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.police.vtan.com:11051
+            #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.citizen.vtan.com:7051
             - CORE_PEER_LOCALMSPID=PoliceMSP
             - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.police.vehicle.com:5984
+            - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.police.vtan.com:5984
             - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
             - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
         volumes:
             - /var/run/:/host/var/run/
-            - ../crypto-config/peerOrganizations/police.vehicle.com/peers/peer0.police.vehicle.com/msp:/etc/hyperledger/fabric/msp
-            - ../crypto-config/peerOrganizations/police.vehicle.com/peers/peer0.police.vehicle.com/tls:/etc/hyperledger/fabric/tls
-            - peer0.police.vehicle.com:/var/hyperledger/production
+            - ../crypto-config/peerOrganizations/police.vtan.com/peers/peer0.police.vtan.com/msp:/etc/hyperledger/fabric/msp
+            - ../crypto-config/peerOrganizations/police.vtan.com/peers/peer0.police.vtan.com/tls:/etc/hyperledger/fabric/tls
+            - peer0.police.vtan.com:/var/hyperledger/production
         ports:
             - 11051:11051
 
@@ -150,14 +150,14 @@ services:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-citizen
             - FABRIC_CA_SERVER_TLS_ENABLED=true
-            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.citizen.vehicle.com-cert.pem
+            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.citizen.vtan.com-cert.pem
             - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY
             - FABRIC_CA_SERVER_PORT=7054
         ports:
             - "7054:7054"
-        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.citizen.vehicle.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.citizen.vtan.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY -b admin:adminpw -d'
         volumes:
-            - ../crypto-config/peerOrganizations/citizen.vehicle.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - ../crypto-config/peerOrganizations/citizen.vtan.com/ca/:/etc/hyperledger/fabric-ca-server-config
 
     caRTO:
         image: hyperledger/fabric-ca:$IMAGE_TAG
@@ -165,14 +165,14 @@ services:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-rto
             - FABRIC_CA_SERVER_TLS_ENABLED=true
-            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.rto.vehicle.com-cert.pem
+            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.rto.vtan.com-cert.pem
             - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
             - FABRIC_CA_SERVER_PORT=8054
         ports:
             - "8054:8054"
-        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.rto.vehicle.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.rto.vtan.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b admin:adminpw -d'
         volumes:
-            - ../crypto-config/peerOrganizations/rto.vehicle.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - ../crypto-config/peerOrganizations/rto.vtan.com/ca/:/etc/hyperledger/fabric-ca-server-config
 
     caPollution:
         image: hyperledger/fabric-ca:$IMAGE_TAG
@@ -180,14 +180,14 @@ services:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-pollution
             - FABRIC_CA_SERVER_TLS_ENABLED=true
-            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.pollution.vehicle.com-cert.pem
+            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.pollution.vtan.com-cert.pem
             - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY
             - FABRIC_CA_SERVER_PORT=9054
         ports:
             - "9054:9054"
-        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.pollution.vehicle.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.pollution.vtan.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
         volumes:
-            - ../crypto-config/peerOrganizations/pollution.vehicle.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - ../crypto-config/peerOrganizations/pollution.vtan.com/ca/:/etc/hyperledger/fabric-ca-server-config
 
     caInsurance:
         image: hyperledger/fabric-ca:$IMAGE_TAG
@@ -195,14 +195,14 @@ services:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-insurance
             - FABRIC_CA_SERVER_TLS_ENABLED=true
-            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.insurance.vehicle.com-cert.pem
+            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.insurance.vtan.com-cert.pem
             - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY
             - FABRIC_CA_SERVER_PORT=10054
         ports:
             - "10054:10054"
-        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.insurance.vehicle.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.insurance.vtan.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
         volumes:
-            - ../crypto-config/peerOrganizations/insurance.vehicle.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - ../crypto-config/peerOrganizations/insurance.vtan.com/ca/:/etc/hyperledger/fabric-ca-server-config
 
     caPolice:
         image: hyperledger/fabric-ca:$IMAGE_TAG
@@ -210,11 +210,11 @@ services:
             - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
             - FABRIC_CA_SERVER_CA_NAME=ca-police
             - FABRIC_CA_SERVER_TLS_ENABLED=true
-            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.police.vehicle.com-cert.pem
+            - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.police.vtan.com-cert.pem
             - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA5_PRIVATE_KEY
             - FABRIC_CA_SERVER_PORT=11054
         ports:
             - "11054:11054"
-        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.police.vehicle.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA5_PRIVATE_KEY -b admin:adminpw -d'
+        command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.police.vtan.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA5_PRIVATE_KEY -b admin:adminpw -d'
         volumes:
-            - ../crypto-config/peerOrganizations/police.vehicle.com/ca/:/etc/hyperledger/fabric-ca-server-config
+            - ../crypto-config/peerOrganizations/police.vtan.com/ca/:/etc/hyperledger/fabric-ca-server-config
